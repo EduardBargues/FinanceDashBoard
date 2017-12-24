@@ -4,8 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TeslaAnalysis;
-using TeslaAnalysis.Indicators;
+using CandleTimeSeriesAnalysis;
+using CandleTimeSeriesAnalysis.Indicators;
 using TimeSeriesAnalysis;
 
 namespace DashBoard
@@ -15,8 +15,11 @@ namespace DashBoard
         public static IEnumerable<(TimeSeries, Color)> GetIndicators(CandleTimeSeries series
             , int indicatorPeriod
             , int smoothingPeriod
-            , DateTime startDate)
+            , DateTime? startDate = null)
         {
+            if (startDate == null)
+                startDate = series.Candles.Min(candle => candle.Start);
+
             DirectionalIndicatorPlus diPlus =
                 DirectionalIndicatorPlus.Create(indicatorPeriod, smoothingPeriod);
             TimeSeries diPlusSeries = series.Candles

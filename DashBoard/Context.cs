@@ -8,9 +8,9 @@ using System.Reflection;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using Common;
+using CandleTimeSeriesAnalysis;
+using CommonUtils;
 using MoreLinq;
-using TeslaAnalysis;
 
 namespace DashBoard
 {

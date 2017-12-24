@@ -1,25 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using TeslaAnalysis;
-using CandleTimeSeries = TeslaAnalysis.CandleTimeSeries;
 
 namespace DashBoard
 {
     public partial class Form : System.Windows.Forms.Form, IMainView
     {
         private MainPresenter mainPresenter;
-        private HistoryCtl historyCtl;
-        private DailyCtl dailyCtl;
+        private readonly HistoryCtl historyCtl;
+        private readonly DailyCtl dailyCtl;
 
         public event Action DailyPageGotFocus;
 

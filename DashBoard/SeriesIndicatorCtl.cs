@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CandleTimeSeriesAnalysis;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Reporting;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
-using TeslaAnalysis;
 using TimeSeriesAnalysis;
 
 namespace DashBoard
