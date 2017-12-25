@@ -48,7 +48,7 @@
             this.grid.Name = "grid";
             this.grid.ReadOnly = true;
             this.grid.RowTemplate.Height = 40;
-            this.grid.Size = new System.Drawing.Size(553, 1482);
+            this.grid.Size = new System.Drawing.Size(656, 1302);
             this.grid.TabIndex = 11;
             // 
             // groups
@@ -71,7 +71,7 @@
             // 
             this.buttonRefresh.Location = new System.Drawing.Point(274, 3);
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(279, 50);
+            this.buttonRefresh.Size = new System.Drawing.Size(382, 50);
             this.buttonRefresh.TabIndex = 15;
             this.buttonRefresh.Text = "REFRESH";
             this.buttonRefresh.UseVisualStyleBackColor = true;
@@ -82,9 +82,9 @@
             this.groupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox.Location = new System.Drawing.Point(559, 4);
+            this.groupBox.Location = new System.Drawing.Point(662, 4);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(1233, 1537);
+            this.groupBox.Size = new System.Drawing.Size(1282, 1357);
             this.groupBox.TabIndex = 0;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Histogram";
@@ -99,7 +99,7 @@
             this.Controls.Add(this.groups);
             this.Controls.Add(this.grid);
             this.Name = "StatisticsCtl";
-            this.Size = new System.Drawing.Size(1795, 1544);
+            this.Size = new System.Drawing.Size(1947, 1364);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groups)).EndInit();
             this.ResumeLayout(false);

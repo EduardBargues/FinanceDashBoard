@@ -8,14 +8,16 @@ using CandleTimeSeriesAnalysis;
 using CommonUtils;
 using MoreLinq;
 using OxyPlot;
+using OxyPlot.Axes;
 using OxyPlot.Series;
+using OxyPlot.WindowsForms;
 
 namespace DashBoard
 {
     public interface IStatisticsView
     {
         void LoadData(DataTable data);
-        void LoadHistograms(IEnumerable<ColumnSeries> series);
+        void LoadHistograms(PlotView histograms);
         event Action RefreshRequest;
         string SelectedStatisticsLabel { get; }
         int Groups { get; }
@@ -28,14 +30,14 @@ namespace DashBoard
         public StatisticsPresenter(IStatisticsView view)
         {
             this.view = view;
-            this.view.RefreshRequest += View_SelectedStatisticsChanged;
+            this.view.RefreshRequest += RefreshHistogram;
         }
 
-        private void View_SelectedStatisticsChanged()
+        private void RefreshHistogram()
         {
             string statisticsLabel = view.SelectedStatisticsLabel;
-            IEnumerable<ColumnSeries> histograms = !string.IsNullOrEmpty(statisticsLabel)
-                ? GetHistogram(series, statisticsLabel)
+            PlotView histograms = !string.IsNullOrEmpty(statisticsLabel)
+                ? GetHistograms(series, statisticsLabel)
                 : null;
             view.LoadHistograms(histograms);
         }
@@ -48,65 +50,84 @@ namespace DashBoard
             this.view.LoadData(table);
         }
 
-        private IEnumerable<ColumnSeries> GetHistogram(CandleTimeSeries candleSeries, string statisticsLabel)
+        private PlotView GetHistograms(CandleTimeSeries candleSeries, string statisticsLabel)
         {
-            ColumnSeries candlesUp;
-            ColumnSeries candlesDown;
-            IEnumerable<Candle> upCandles = candleSeries.Candles
-                .Where(candle => candle.GoesUp);
-            IEnumerable<Candle> downCandles = candleSeries.Candles
-                .Where(candle => candle.GoesDown);
+            string propertyName;
             switch (statisticsLabel)
             {
                 case CandlesQuantityLabel:
                 case BodyAverageLabel:
                 case BodyStandardDeviationLabel:
-                    candlesUp = GetBodyHistogram(upCandles, "Candles Up", view.Groups, nameof(Candle.Body));
-                    candlesDown = GetBodyHistogram(downCandles, "Candles Down", view.Groups, nameof(Candle.Body));
+                    propertyName = nameof(Candle.Body);
                     break;
                 case RangeAverageLabel:
                 case RangeStandardDeviationLabel:
-                    candlesUp = GetBodyHistogram(upCandles, "Candles Up", view.Groups, nameof(Candle.Range));
-                    candlesDown = GetBodyHistogram(downCandles, "Candles Down", view.Groups, nameof(Candle.Range));
+                    propertyName = nameof(Candle.Range);
                     break;
                 default:
                     throw new NotImplementedException();
             }
-            yield return candlesUp;
-            yield return candlesDown;
+            PlotView plotView = GetHistogram(candleSeries, view.Groups, propertyName);
+            return plotView;
         }
-
-        private ColumnSeries GetBodyHistogram(IEnumerable<Candle> candles, string label, int groups, string propertyName)
+        private PlotView GetHistogram(CandleTimeSeries candlesSeries
+            , int groups
+            , string propertyName)
         {
-            ColumnSeries histogram = Plotter.GetDataPointSeries<ColumnSeries>(
-                (nameof(ColumnSeries.Title), label),
-                (nameof(ColumnSeries.ValueField), "Value")
-            );
             PropertyInfo property = typeof(Candle).GetProperty(propertyName);
             double Function(Candle candle)
             {
                 return (double)property.GetValue(candle);
             }
-            List<Candle> list = candles
+            List<double> values = candlesSeries.Candles
+                .Select(Function)
                 .ToList();
-            double max = list
-                .Max(candle => Function(candle));
-            double min = list
-                .Min(candle => Function(candle));
-            double amplitude = (max - min) / groups;
-            histogram.ItemsSource = list
-                .GroupBy(candle => (int)((Function(candle) - min) / amplitude))
-                .OrderBy(grouping => grouping.Key)
-                .Select(grouping =>
-                {
-                    double firstValue = amplitude * grouping.Key;
-                    double lastValue = amplitude * (grouping.Key + 1);
-                    string itemLabel = $"{firstValue:N2} - {lastValue:N2}";
-                    return new { Label = itemLabel, Value = grouping.Count() };
-                })
-                .ToList();
+            double min = values.Min();
+            double max = values.Max();
+            double increment = (max - min) / groups;
 
-            return histogram;
+            ColumnSeries seriesCandlesUp = new ColumnSeries { Title = "Candles Up", FillColor = OxyColors.Black, StrokeColor = OxyColors.Black, StrokeThickness = 1 };
+            ColumnSeries seriesCandleDown = new ColumnSeries { Title = "Candles Down", FillColor = OxyColors.Red, StrokeColor = OxyColors.Red, StrokeThickness = 1 };
+            LinearAxis valueAxis = new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, MaximumPadding = 0.06, AbsoluteMinimum = 0, Title = "#" };
+            CategoryAxis categoryAxis = new CategoryAxis { Position = AxisPosition.Bottom, Title = "$" };
+            Dictionary<int, int> candlesUpByGroup = candlesSeries.Candles
+                .Where(candle => candle.GoesUp)
+                .GroupBy(candle => (int)((Function(candle) - min) / increment))
+                .ToDictionary(grouping => grouping.Key, grouping => grouping.Count());
+            Dictionary<int, int> candlesDownByGroup = candlesSeries.Candles
+                .Where(candle => candle.GoesDown)
+                .GroupBy(candle => (int)((Function(candle) - min) / increment))
+                .ToDictionary(grouping => grouping.Key, grouping => grouping.Count());
+            values
+                .GroupBy(value => (int)((value - min) / increment))
+                .OrderBy(grouping => grouping.Key)
+                .ForEach((grouping, groupIndex) =>
+                {
+                    int candlesUpNum = candlesUpByGroup.ContainsKey(grouping.Key)
+                        ? candlesUpByGroup[grouping.Key]
+                        : 0;
+                    int candlesDownNum = candlesDownByGroup.ContainsKey(grouping.Key)
+                        ? candlesDownByGroup[grouping.Key]
+                        : 0;
+                    seriesCandlesUp.Items.Add(new ColumnItem(candlesUpNum, groupIndex));
+                    seriesCandleDown.Items.Add(new ColumnItem(candlesDownNum, groupIndex));
+                    string label = $"{grouping.Key * increment:N0}-{(grouping.Key + 1) * increment:N0}";
+                    categoryAxis.Labels.Add(label);
+                });
+
+            PlotModel model = new PlotModel
+            {
+                LegendPlacement = LegendPlacement.Inside,
+                LegendPosition = LegendPosition.RightTop,
+                LegendOrientation = LegendOrientation.Horizontal,
+                LegendBorderThickness = 0,
+                Title = propertyName == nameof(Candle.Body) ? "Candles Body" : "Candles Range",
+            };
+            model.Series.Add(seriesCandlesUp);
+            model.Series.Add(seriesCandleDown);
+            model.Axes.Add(categoryAxis);
+            model.Axes.Add(valueAxis);
+            return new PlotView { Model = model };
         }
 
         private const string CandlesQuantityLabel = "#";

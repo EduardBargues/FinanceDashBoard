@@ -40,6 +40,7 @@ namespace DashBoard
             InitializeComponent();
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             grid.MultiSelect = false;
+            groups.Value = 10;
         }
 
         public void LoadData(DataTable data)
@@ -49,18 +50,17 @@ namespace DashBoard
             grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             grid.Refresh();
         }
-        public void LoadHistograms(IEnumerable<ColumnSeries> series)
+        public void LoadHistograms(PlotView histograms)
         {
             groupBox.Controls.Clear();
-            PlotView view = new PlotView();
-            view.Model = new PlotModel();
-            foreach (ColumnSeries s in series)
-                view.Model.Series.Add(s);
-            view.Dock = DockStyle.Fill;
-            view.Visible = true;
-            groupBox.Controls.Add(view);
+            if (histograms != null)
+            {
+                groupBox.Controls.Add(histograms);
+                histograms.Dock = DockStyle.Fill;
+                histograms.Visible = true;
+            }
+            groupBox.Refresh();
         }
-
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             RefreshRequest?.Invoke();

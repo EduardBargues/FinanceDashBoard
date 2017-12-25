@@ -45,7 +45,6 @@
             this.smoothingPeriod = new System.Windows.Forms.NumericUpDown();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.seriesIndicatorCtl = new DashBoard.SeriesIndicatorCtl();
-            this.statisticsCtl = new DashBoard.StatisticsCtl();
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.candlesDurationUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.candlesVolumeUpDown)).BeginInit();
@@ -57,7 +56,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.smoothingPeriod)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,7 +72,7 @@
             this.groupBox.Controls.Add(this.candlesByTicksRadioButton);
             this.groupBox.Location = new System.Drawing.Point(3, 3);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(478, 179);
+            this.groupBox.Size = new System.Drawing.Size(520, 179);
             this.groupBox.TabIndex = 5;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Compute Candles By...";
@@ -93,7 +91,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.refreshButton.Location = new System.Drawing.Point(312, 35);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(160, 127);
+            this.refreshButton.Size = new System.Drawing.Size(202, 127);
             this.refreshButton.TabIndex = 2;
             this.refreshButton.Text = "REFRESH";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -154,7 +152,7 @@
             this.gridDays.Location = new System.Drawing.Point(0, 303);
             this.gridDays.Name = "gridDays";
             this.gridDays.RowTemplate.Height = 40;
-            this.gridDays.Size = new System.Drawing.Size(478, 893);
+            this.gridDays.Size = new System.Drawing.Size(523, 893);
             this.gridDays.TabIndex = 0;
             // 
             // panel1
@@ -165,7 +163,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(478, 1196);
+            this.panel1.Size = new System.Drawing.Size(526, 1196);
             this.panel1.TabIndex = 6;
             // 
             // panel2
@@ -176,7 +174,7 @@
             this.panel2.Controls.Add(this.smoothingPeriod);
             this.panel2.Location = new System.Drawing.Point(0, 188);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(644, 109);
+            this.panel2.Size = new System.Drawing.Size(523, 109);
             this.panel2.TabIndex = 6;
             // 
             // periodIndicator
@@ -216,18 +214,14 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(481, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(535, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.seriesIndicatorCtl);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.statisticsCtl);
-            this.splitContainer1.Size = new System.Drawing.Size(1507, 1190);
+            this.splitContainer1.Size = new System.Drawing.Size(1453, 1190);
             this.splitContainer1.SplitterDistance = 594;
             this.splitContainer1.TabIndex = 11;
             // 
@@ -236,16 +230,8 @@
             this.seriesIndicatorCtl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.seriesIndicatorCtl.Location = new System.Drawing.Point(0, 0);
             this.seriesIndicatorCtl.Name = "seriesIndicatorCtl";
-            this.seriesIndicatorCtl.Size = new System.Drawing.Size(1507, 594);
+            this.seriesIndicatorCtl.Size = new System.Drawing.Size(1453, 594);
             this.seriesIndicatorCtl.TabIndex = 9;
-            // 
-            // statisticsCtl
-            // 
-            this.statisticsCtl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.statisticsCtl.Location = new System.Drawing.Point(0, 0);
-            this.statisticsCtl.Name = "statisticsCtl";
-            this.statisticsCtl.Size = new System.Drawing.Size(1507, 592);
-            this.statisticsCtl.TabIndex = 10;
             // 
             // DailyCtl
             // 
@@ -267,7 +253,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.periodIndicator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.smoothingPeriod)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -286,7 +271,6 @@
         private System.Windows.Forms.NumericUpDown candlesTicksUpDown;
         private System.Windows.Forms.Panel panel1;
         private SeriesIndicatorCtl seriesIndicatorCtl;
-        private StatisticsCtl statisticsCtl;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.NumericUpDown periodIndicator;

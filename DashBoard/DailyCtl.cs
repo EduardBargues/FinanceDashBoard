@@ -15,6 +15,8 @@ namespace DashBoard
 {
     public partial class DailyCtl : UserControl, IDailyView
     {
+        private readonly StatisticsCtl statisticsCtl;
+
         public DateTime? SelectedDay => gridDays.CurrentRow?.DataBoundItem as DateTime?;
         public event Action RefreshRequest;
         public bool DaysLoaded { get; set; }
@@ -37,6 +39,14 @@ namespace DashBoard
             periodIndicator.Value = 14;
             smoothingPeriod.Value = 14;
             refreshButton.Click += (a, b) => RefreshRequest?.Invoke();
+
+            statisticsCtl = new StatisticsCtl()
+            {
+                Dock = DockStyle.Fill,
+                Visible = true,
+            };
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(statisticsCtl);
         }
 
         public IStatisticsView GetStatisticsView()
