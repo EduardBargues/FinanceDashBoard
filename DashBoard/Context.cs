@@ -19,7 +19,7 @@ namespace DashBoard
         private readonly string databaseConnectionString;
         private readonly string userName;
         private readonly string password;
-        private const string DatabaseConfigurationFile = @"C:\Users\eduar\Desktop\databaseConnection.csv";
+        private const string DatabaseConfigurationFile = @"C:\databaseConnection.csv";
 
         private readonly Dictionary<DateTime, List<Trade>> tradesByDay = new Dictionary<DateTime, List<Trade>>();
 
