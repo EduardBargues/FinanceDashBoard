@@ -65,5 +65,10 @@ namespace DashBoard
         {
             RefreshRequest?.Invoke();
         }
+
+        private void grid_SelectionChanged(object sender, EventArgs e)
+        {
+            RefreshRequest?.Invoke();
+        }
     }
 }

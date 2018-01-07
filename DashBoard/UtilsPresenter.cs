@@ -12,6 +12,11 @@ namespace DashBoard
 {
     public static class UtilsPresenter
     {
+        public static string DiPlusIndicatorName = "DI+";
+        public static string DiMinusIndicatorName = "DI-";
+        public static string DxIndicatorName = "DX";
+        public static string AdxIndicatorName = "ADX";
+
         public static IEnumerable<(TimeSeries, Color)> GetIndicators(CandleTimeSeries series
             , int indicatorPeriod
             , int smoothingPeriod
@@ -26,7 +31,7 @@ namespace DashBoard
                 .Where((candle, index) => index > 0 &&
                                           candle.Start >= startDate)
                 .Select(candle => new DateValue(candle.Start, diPlus[series, candle.Start]))
-                .ToTimeSeries("DI+");
+                .ToTimeSeries(DiPlusIndicatorName);
             yield return (diPlusSeries, Color.Blue);
 
             DirectionalIndicatorMinus diMinus =
@@ -35,7 +40,7 @@ namespace DashBoard
                 .Where((candle, index) => index > 0 &&
                                           candle.Start >= startDate)
                 .Select(candle => new DateValue(candle.Start, diMinus[series, candle.Start]))
-                .ToTimeSeries("DI-");
+                .ToTimeSeries(DiMinusIndicatorName);
             yield return (diMinusSeries, Color.Red);
 
             DirectionalMovementIndex dx = DirectionalMovementIndex.Create(indicatorPeriod, smoothingPeriod);
@@ -43,7 +48,7 @@ namespace DashBoard
                 .Where((candle, index) => index > 0 &&
                                           candle.Start >= startDate)
                 .Select(candle => new DateValue(candle.Start, dx[series, candle.Start]))
-                .ToTimeSeries("DX");
+                .ToTimeSeries(DxIndicatorName);
             yield return (dxSeries, Color.DarkSlateGray);
 
             AverageDirectionalMovementIndex adx =
@@ -52,7 +57,7 @@ namespace DashBoard
                 .Where((candle, index) => index > 0 &&
                                           candle.Start >= startDate)
                 .Select(candle => new DateValue(candle.Start, adx[series, candle.Start]))
-                .ToTimeSeries("ADX");
+                .ToTimeSeries(AdxIndicatorName);
             yield return (adxSeries, Color.DarkGray);
         }
     }

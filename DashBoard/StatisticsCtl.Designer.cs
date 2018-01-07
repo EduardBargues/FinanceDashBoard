@@ -47,9 +47,11 @@
             this.grid.Location = new System.Drawing.Point(0, 59);
             this.grid.Name = "grid";
             this.grid.ReadOnly = true;
+            this.grid.RowHeadersVisible = false;
             this.grid.RowTemplate.Height = 40;
-            this.grid.Size = new System.Drawing.Size(656, 1302);
+            this.grid.Size = new System.Drawing.Size(777, 1302);
             this.grid.TabIndex = 11;
+            this.grid.SelectionChanged += new System.EventHandler(this.grid_SelectionChanged);
             // 
             // groups
             // 
@@ -71,7 +73,7 @@
             // 
             this.buttonRefresh.Location = new System.Drawing.Point(274, 3);
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(382, 50);
+            this.buttonRefresh.Size = new System.Drawing.Size(503, 50);
             this.buttonRefresh.TabIndex = 15;
             this.buttonRefresh.Text = "REFRESH";
             this.buttonRefresh.UseVisualStyleBackColor = true;
@@ -82,9 +84,9 @@
             this.groupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox.Location = new System.Drawing.Point(662, 4);
+            this.groupBox.Location = new System.Drawing.Point(783, 4);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(1282, 1357);
+            this.groupBox.Size = new System.Drawing.Size(1161, 1357);
             this.groupBox.TabIndex = 0;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Histogram";

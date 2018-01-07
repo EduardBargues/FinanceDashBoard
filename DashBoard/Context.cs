@@ -124,7 +124,7 @@ namespace DashBoard
             Dictionary<string, object> propertiesByName = info
                 .ToDictionary(i => i.Item1, i => i.Item2);
 
-            Trade trade = new Trade()
+            Trade trade = new Trade
             {
                 Instant = (DateTime)propertiesByName[nameof(Trade.Instant)],
                 Volume = Convert.ToDouble(propertiesByName[nameof(Trade.Volume)]),

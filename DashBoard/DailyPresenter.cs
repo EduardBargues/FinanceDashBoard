@@ -65,8 +65,12 @@ namespace DashBoard
                 List<Trade> dayTrades = Context.Instance.GetDailyTrades(day)
                     .ToList();
                 (CandleTimeSeries daySeries, CandleTimeSeries twoDaysSeries) = CandleTimeSeries(dayTrades, day, dayBeforeTrades);
-                statisticsPresenter.LoadData(daySeries);
-                IEnumerable<(TimeSeries, Color)> indicators = UtilsPresenter.GetIndicators(twoDaysSeries, view.Period, view.SmoothingPeriod, day.Date);
+                List<(TimeSeries, Color)> indicators = UtilsPresenter.GetIndicators(twoDaysSeries
+                    , view.Period
+                    , view.SmoothingPeriod
+                    , day.Date)
+                    .ToList();
+                statisticsPresenter.LoadData(daySeries, indicators.Select(ind => ind.Item1));
                 view.LoadData(daySeries, indicators);
             }
         }

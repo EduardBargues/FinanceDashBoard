@@ -20,7 +20,7 @@ namespace DashBoard
         public HistoryCtl()
         {
             InitializeComponent();
-            dateTimePickerFrom.Value = new DateTime(2017, 1, 1);
+            dateTimePickerFrom.Value = DateTime.Today.AddMonths(-3);
             buttonRefresh.Click += (a, b) => LoadDataRequest?.Invoke();
             numericUpDownDxPeriod.Value = 14;
             numericUpDownAdxSmoothingPeriod.Value = 14;
