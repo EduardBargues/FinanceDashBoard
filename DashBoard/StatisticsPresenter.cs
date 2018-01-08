@@ -63,36 +63,31 @@ namespace DashBoard
         private PlotView GetHistograms(CandleTimeSeries candleSeries, string statisticsLabel)
         {
             string title;
+            string xlabel;
             Func<CandleTimeSeries, List<double>> upFunction;
             Func<CandleTimeSeries, List<double>> downFunction;
             switch (statisticsLabel)
             {
                 case RangeAverageLabel:
                 case RangeStandardDeviationLabel:
-                    title = nameof(Candle.Range);
-                    upFunction = s => s.Candles
-                        .Where(candle => candle.GoesUp)
-                        .Select(candle => candle.Range)
-                        .ToList();
-                    downFunction = s => s.Candles
-                        .Where(candle => candle.GoesDown)
-                        .Select(candle => candle.Range)
-                        .ToList();
+                    title = "Candles Range";
+                    xlabel = "$";
+                    (upFunction, downFunction) = GetRangeFunctions();
                     break;
                 case AdxSustainedSlopeLabel:
-                    title = "Patch";
+                    title = "Patches";
+                    xlabel = "#";
                     (upFunction, downFunction) = GetPatchesFunctions();
                     break;
+                case DirectionalIndicatorMaxValueLabel:
+                    title = "Directional Indicator";
+                    xlabel = "";
+                    (upFunction, downFunction) = GetDirectionalIndicatorFunctions();
+                    break;
                 default:
-                    title = nameof(Candle.Body);
-                    upFunction = s => s.Candles
-                        .Where(candle => candle.GoesUp)
-                        .Select(candle => candle.Body)
-                        .ToList();
-                    downFunction = s => s.Candles
-                        .Where(candle => candle.GoesDown)
-                        .Select(candle => candle.Body)
-                        .ToList();
+                    title = "Candles Body";
+                    xlabel = "$";
+                    (upFunction, downFunction) = GetBodyFunctions();
                     break;
             }
 
@@ -100,15 +95,56 @@ namespace DashBoard
                 , view.Groups
                 , upFunction
                 , downFunction
-                , title);
+                , title
+                , xlabel);
             return plotView;
+        }
+
+        private (Func<CandleTimeSeries, List<double>> upFunction
+            , Func<CandleTimeSeries, List<double>> downFunction) GetDirectionalIndicatorFunctions()
+        {
+            return (
+                s => s.Candles
+                    .Select(candle => diPlus[candle.Start])
+                    .ToList(),
+                s => s.Candles
+                    .Select(candle => diMinus[candle.Start])
+                    .ToList()
+                );
+        }
+        private (Func<CandleTimeSeries, List<double>> upFunction
+            , Func<CandleTimeSeries, List<double>> downFunction) GetBodyFunctions()
+        {
+            return (
+                s => s.Candles
+                    .Where(candle => candle.GoesUp)
+                    .Select(candle => candle.Body)
+                    .ToList(),
+                s => s.Candles
+                    .Where(candle => candle.GoesDown)
+                    .Select(candle => candle.Body)
+                    .ToList());
+        }
+        private (Func<CandleTimeSeries, List<double>> upFunction
+            , Func<CandleTimeSeries, List<double>> downFunction) GetRangeFunctions()
+        {
+            return (
+                s => s.Candles
+                    .Where(candle => candle.GoesUp)
+                    .Select(candle => candle.Range)
+                    .ToList(),
+                s => s.Candles
+                    .Where(candle => candle.GoesDown)
+                    .Select(candle => candle.Range)
+                    .ToList());
         }
 
         private PlotView GetHistograms(CandleTimeSeries candlesSeries
             , int groups
             , Func<CandleTimeSeries, List<double>> upFunction
             , Func<CandleTimeSeries, List<double>> downFunction
-            , string title)
+            , string title
+            , string xlabel)
         {
             List<double> upValues = upFunction(candlesSeries);
             List<double> downValues = downFunction(candlesSeries);
@@ -120,25 +156,26 @@ namespace DashBoard
 
             ColumnSeries seriesCandlesUp = new ColumnSeries { Title = "Up", FillColor = OxyColors.Black, StrokeColor = OxyColors.Black, StrokeThickness = 1 };
             ColumnSeries seriesCandleDown = new ColumnSeries { Title = "Down", FillColor = OxyColors.Red, StrokeColor = OxyColors.Red, StrokeThickness = 1 };
-            LinearAxis valueAxis = new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, MaximumPadding = 0.06, AbsoluteMinimum = 0, Title = "#" };
-            CategoryAxis categoryAxis = new CategoryAxis { Position = AxisPosition.Bottom, Title = "$" };
+            LinearAxis valueAxis = new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, MaximumPadding = 0.06, AbsoluteMinimum = 0, Title = xlabel};
+            CategoryAxis categoryAxis = new CategoryAxis { Position = AxisPosition.Bottom };
             for (int groupIndex = 0; groupIndex < groups; groupIndex++)
             {
-                string label = $"{min + groupIndex * increment:N1}-{min + (groupIndex + 1) * increment:N1}";
+                string label = $"{min + groupIndex * increment:N2}/{min + (groupIndex + 1) * increment:N2}";
                 categoryAxis.Labels.Add(label);
             }
             Dictionary<int, int> upGroups = upValues
                 .GroupBy(value =>
                 {
-                    int groupIndex= (int) ((value - min) / increment);
-                    if (groupIndex==groups)
+                    int groupIndex = (int)((value - min) / increment);
+                    if (groupIndex == groups)
                         groupIndex--;
                     return groupIndex;
                 })
                 .ToDictionary(grouping => grouping.Key,
                               grouping => grouping.Count());
             Dictionary<int, int> downGroups = downValues
-                .GroupBy(value => {
+                .GroupBy(value =>
+                {
                     int groupIndex = (int)((value - min) / increment);
                     if (groupIndex == groups)
                         groupIndex--;
@@ -228,7 +265,7 @@ namespace DashBoard
         private const string ColumnNameDescription = "Description";
         private const string ColumnNameCandlesUp = "Candles UP";
         private const string ColumnNameCandlesDown = "Candles DOWN";
-        private const string IndicatorMaxValueLabel = "DI max. value";
+        private const string DirectionalIndicatorMaxValueLabel = "DI max. value";
         private const string AdxSustainedSlopeLabel = "# Candles ADX sustained slope";
         private const string Format = "N2";
         private DataTable GetStatistics()
@@ -266,7 +303,7 @@ namespace DashBoard
         private static void AddIndicatorMaxValueRow(DataTable table, TimeSeries diPlus, TimeSeries diMinus)
         {
             DataRow maxValueIndicatorRow = table.NewRow();
-            maxValueIndicatorRow[ColumnNameDescription] = IndicatorMaxValueLabel;
+            maxValueIndicatorRow[ColumnNameDescription] = DirectionalIndicatorMaxValueLabel;
             maxValueIndicatorRow[ColumnNameCandlesUp] = diPlus.Values.Max(dv => dv.Value).ToString(Format);
             maxValueIndicatorRow[ColumnNameCandlesDown] = diMinus.Values.Max(dv => dv.Value).ToString(Format);
             table.Rows.Add(maxValueIndicatorRow);
