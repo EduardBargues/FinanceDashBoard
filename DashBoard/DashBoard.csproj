@@ -99,6 +99,15 @@
     </Compile>
     <Compile Include="HistoryPresenter.cs" />
     <Compile Include="MainPresenter.cs" />
+    <Compile Include="PlotViewProviders\CandleQuantityDiPlusVsDiMinusDataProvider.cs" />
+    <Compile Include="PlotViewProviders\CandleRangeDataProvider.cs" />
+    <Compile Include="PlotViewProviders\CandleBodyDataProvider.cs" />
+    <Compile Include="PlotViewProviders\DirectionalIndicatorMaxValueDataProvider.cs" />
+    <Compile Include="PlotViewProviders\HistogramPlotViewProvider.cs" />
+    <Compile Include="PlotViewProviders\I1DimensionDataProvider.cs" />
+    <Compile Include="PlotViewProviders\I2DimensionsDataProvider.cs" />
+    <Compile Include="PlotViewProviders\IPlotViewProvider.cs" />
+    <Compile Include="PlotViewProviders\ScatterPlotViewProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeriesIndicatorCtl.cs">
@@ -107,6 +116,18 @@
     <Compile Include="SeriesIndicatorCtl.Designer.cs">
       <DependentUpon>SeriesIndicatorCtl.cs</DependentUpon>
     </Compile>
+    <Compile Include="StatisticProviders\CandleBodyAverageProvider.cs" />
+    <Compile Include="StatisticProviders\CandleBodyStandardDeviationProvider.cs" />
+    <Compile Include="StatisticProviders\CandleQuantityAdxSustainedSlopeProvider.cs" />
+    <Compile Include="StatisticProviders\CandleQuantityDiPlusVsDiMinusProvider.cs" />
+    <Compile Include="StatisticProviders\CandleQuantityProvider.cs" />
+    <Compile Include="StatisticProviders\CandleRangeAverageProvider.cs" />
+    <Compile Include="StatisticProviders\CandleRangeStandardDeviationProvider.cs" />
+    <Compile Include="StatisticProviders\IPlotableDataProvider.cs" />
+    <Compile Include="StatisticProviders\DirectionalIndicatorMaxValueProvider.cs" />
+    <Compile Include="StatisticProviders\ProvidersUtils.cs" />
+    <Compile Include="StatisticProviders\Statistic.cs" />
+    <Compile Include="StatisticProviders\IStatisticProvider.cs" />
     <Compile Include="StatisticsCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -114,6 +135,7 @@
       <DependentUpon>StatisticsCtl.cs</DependentUpon>
     </Compile>
     <Compile Include="StatisticsPresenter.cs" />
+    <Compile Include="StatisticProviders\PriceVariationAdxSustainedSlopeMaxProvider.cs" />
     <Compile Include="UtilsPresenter.cs" />
     <EmbeddedResource Include="DailyCtl.resx">
       <DependentUpon>DailyCtl.cs</DependentUpon>
@@ -153,5 +175,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

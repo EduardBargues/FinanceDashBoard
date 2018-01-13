@@ -1,14 +1,10 @@
-﻿using System;
+﻿using CandleTimeSeriesAnalysis;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CandleTimeSeriesAnalysis;
-using OxyPlot.WindowsForms;
 using TimeSeriesAnalysis;
 
 namespace DashBoard

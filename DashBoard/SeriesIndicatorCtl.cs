@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using CandleTimeSeriesAnalysis;
+﻿using CandleTimeSeriesAnalysis;
 using OxyPlot;
 using OxyPlot.Axes;
-using OxyPlot.Reporting;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 using TimeSeriesAnalysis;
 
 namespace DashBoard
@@ -48,7 +42,7 @@ namespace DashBoard
                     List<DataPoint> points = indicatorPlotView.Model.Series
                         .Where(s => s is DataPointSeries)
                         .Cast<DataPointSeries>()
-                        .SelectMany(s=>s.Points.Where(p=>p.X>=axis.ActualMinimum && p.X<=axis.ActualMaximum))
+                        .SelectMany(s => s.Points.Where(p => p.X >= axis.ActualMinimum && p.X <= axis.ActualMaximum))
                         .ToList();
                     bool any = points.Any();
                     if (any)
