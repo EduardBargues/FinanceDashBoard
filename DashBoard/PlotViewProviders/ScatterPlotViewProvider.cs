@@ -26,7 +26,9 @@ namespace DashBoard.PlotViewProviders
         {
             ScatterSeries upSeries = Plotter.GetDataPointSeries<ScatterSeries>(
                 (nameof(ScatterSeries.Title), "UP")
-                , (nameof(ScatterSeries.ActualMarkerFillColor), OxyColors.Black));
+                , (nameof(ScatterSeries.ActualMarkerFillColor), OxyColors.Black)
+                , (nameof(ScatterSeries.MarkerFill), OxyColors.Black)
+                );
             dataProvider.GetUpData()
                 .Select(data => new ScatterPoint(data.Item1, data.Item2))
                 .ForEach(p => upSeries.Points.Add(p));
@@ -41,14 +43,16 @@ namespace DashBoard.PlotViewProviders
             model.Series.Add(upSeries);
             ScatterSeries downSeries = Plotter.GetDataPointSeries<ScatterSeries>(
                 (nameof(ScatterSeries.Title), "DOWN")
-                , (nameof(ScatterSeries.ActualMarkerFillColor), OxyColors.Red));
+                , (nameof(ScatterSeries.ActualMarkerFillColor), OxyColors.Red)
+                , (nameof(ScatterSeries.MarkerFill), OxyColors.Red)
+                );
             dataProvider.GetDownData()
                 .Select(data => new ScatterPoint(data.Item1, data.Item2))
                 .ForEach(p => downSeries.Points.Add(p));
             model.Series.Add(downSeries);
-            model.Axes.Clear();
-            model.Axes.Add(new LinearAxis() { Title = xlabel });
-            model.Axes.Add(new LinearAxis() { Title = ylabel });
+            //model.Axes.Clear();
+            //model.Axes.Add(new LinearAxis() { Title = xlabel });
+            //model.Axes.Add(new LinearAxis() { Title = ylabel });
             return new PlotView { Model = model };
         }
     }

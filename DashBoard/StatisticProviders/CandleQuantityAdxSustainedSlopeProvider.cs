@@ -36,7 +36,5 @@ namespace DashBoard.StatisticProviders
                 , upValue
                 , downValue);
         }
-
-
     }
 }

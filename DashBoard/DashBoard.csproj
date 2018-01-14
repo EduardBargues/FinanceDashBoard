@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="HistoryPresenter.cs" />
     <Compile Include="MainPresenter.cs" />
+    <Compile Include="PlotViewProviders\CandleQuantityAdxSustainedSlopeDataProvider.cs" />
     <Compile Include="PlotViewProviders\CandleQuantityDiPlusVsDiMinusDataProvider.cs" />
     <Compile Include="PlotViewProviders\CandleRangeDataProvider.cs" />
     <Compile Include="PlotViewProviders\CandleBodyDataProvider.cs" />

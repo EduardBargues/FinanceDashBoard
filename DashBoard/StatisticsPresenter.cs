@@ -82,7 +82,7 @@ namespace DashBoard
                 ,(new CandleRangeStandardDeviationProvider(series), new HistogramPlotViewProvider(new CandleRangeDataProvider(series),"Candle range","$",view.Groups))
                 ,(new CandleQuantityDiPlusVsDiMinusProvider(diPlus,diMinus), new HistogramPlotViewProvider(new CandleQuantityDiPlusVsDiMinusDataProvider(series,diPlus,diMinus), "Candles Di+ vs Di-","",view.Groups))
                 ,(new DirectionalIndicatorMaxValueProvider(diPlus,diMinus), new HistogramPlotViewProvider(new DirectionalIndicatorMaxValueDataProvider(diPlus,diMinus), "Di+ vs Di-","",view.Groups))
-                //,(new CandleQuantityAdxSustainedSlopeProvider(adx,diPlus,diMinus), new HistogramPlotViewProvider(new DirectionalIndicatorMaxValueDataProvider(diPlus,diMinus), "Di+ vs Di-","$",view.Groups))
+                ,(new CandleQuantityAdxSustainedSlopeProvider(adx,diPlus,diMinus), new ScatterPlotViewProvider(new CandleQuantityAdxSustainedSlopeDataProvider(series, adx, diPlus, diMinus), "Di+ vs Di-","$","#"))
                 //,
                 //,
                 //new PriceVariationAdxSustainedSlopeMaxProvider(series,adx,diPlus,diMinus)
