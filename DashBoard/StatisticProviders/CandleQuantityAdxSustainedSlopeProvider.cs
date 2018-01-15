@@ -1,4 +1,5 @@
 ﻿using MoreLinq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TimeSeriesAnalysis;
@@ -20,14 +21,20 @@ namespace DashBoard.StatisticProviders
 
         public Statistic GetStatistic()
         {
-            (List<IGrouping<int, DateValue>> upGroups
-                , List<IGrouping<int, DateValue>> downGroups) = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus);
+            List<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus).ToList();
 
-            IGrouping<int, DateValue> upGroupMaxCandles = upGroups.Any()
+            List<IEnumerable<DateTime>> upGroups = groups
+                .Where(g => ProvidersUtils.IsUpTendency(g, diPlus, diMinus))
+                .ToList();
+            IEnumerable<DateTime> upGroupMaxCandles = upGroups.Any()
                 ? upGroups.MaxBy(group => group.Count())
                 : null;
             double upValue = upGroupMaxCandles?.Count() ?? 0;
-            IGrouping<int, DateValue> downGroupMaxCandles = downGroups.Any()
+
+            List<IEnumerable<DateTime>> downGroups = groups
+                .Where(g => ProvidersUtils.IsDownTendency(g, diPlus, diMinus))
+                .ToList();
+            IEnumerable<DateTime> downGroupMaxCandles = downGroups.Any()
                 ? downGroups.MaxBy(group => group.Count())
                 : null;
             double downValue = downGroupMaxCandles?.Count() ?? 0;

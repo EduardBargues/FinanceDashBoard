@@ -33,15 +33,6 @@ namespace DashBoard.PlotViewProviders
             double max = allNumbers.Max();
             double increment = (max - min) / groups;
 
-            ColumnSeries seriesCandlesUp = new ColumnSeries { Title = "UP", FillColor = OxyColors.Black, StrokeColor = OxyColors.Black, StrokeThickness = 1 };
-            ColumnSeries seriesCandleDown = new ColumnSeries { Title = "DOWN", FillColor = OxyColors.Red, StrokeColor = OxyColors.Red, StrokeThickness = 1 };
-            LinearAxis valueAxis = new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, MaximumPadding = 0.06, AbsoluteMinimum = 0, Title = "#" };
-            CategoryAxis categoryAxis = new CategoryAxis { Position = AxisPosition.Bottom, Title = xLabel };
-            for (int groupIndex = 0; groupIndex < groups; groupIndex++)
-            {
-                string label = $"{min + groupIndex * increment:N2}|{min + (groupIndex + 1) * increment:N2}";
-                categoryAxis.Labels.Add(label);
-            }
             Dictionary<int, int> upGroups = upValues
                 .GroupBy(value =>
                 {
@@ -62,6 +53,8 @@ namespace DashBoard.PlotViewProviders
                 })
                 .ToDictionary(grouping => grouping.Key,
                               grouping => grouping.Count());
+            ColumnSeries seriesCandlesUp = new ColumnSeries { Title = "UP", FillColor = OxyColors.Black, StrokeColor = OxyColors.Black, StrokeThickness = 1 };
+            ColumnSeries seriesCandleDown = new ColumnSeries { Title = "DOWN", FillColor = OxyColors.Red, StrokeColor = OxyColors.Red, StrokeThickness = 1 };
             upGroups.Keys
                 .Union(downGroups.Keys)
                 .OrderBy(groupIndex => groupIndex)
@@ -87,7 +80,15 @@ namespace DashBoard.PlotViewProviders
             };
             model.Series.Add(seriesCandlesUp);
             model.Series.Add(seriesCandleDown);
+
+            CategoryAxis categoryAxis = new CategoryAxis { Position = AxisPosition.Bottom, Title = xLabel };
+            for (int groupIndex = 0; groupIndex < groups; groupIndex++)
+            {
+                string label = $"{min + groupIndex * increment:N2}|{min + (groupIndex + 1) * increment:N2}";
+                categoryAxis.Labels.Add(label);
+            }
             model.Axes.Add(categoryAxis);
+            LinearAxis valueAxis = new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, MaximumPadding = 0.06, AbsoluteMinimum = 0, Title = "#" };
             model.Axes.Add(valueAxis);
             return new PlotView { Model = model };
         }

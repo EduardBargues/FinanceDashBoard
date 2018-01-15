@@ -1,5 +1,6 @@
 ﻿using CandleTimeSeriesAnalysis;
 using MoreLinq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TimeSeriesAnalysis;
@@ -23,20 +24,26 @@ namespace DashBoard.StatisticProviders
 
         public Statistic GetStatistic()
         {
-            (List<IGrouping<int, DateValue>> upGroups
-                , List<IGrouping<int, DateValue>> downGroups) = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus);
-            IGrouping<int, DateValue> upGroupMaxCandles = upGroups.Any()
-                ? upGroups.MaxBy(group => group.Count())
+            List<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus)
+                .ToList();
+            List<IEnumerable<DateTime>> upGroups = groups
+                .Where(g => ProvidersUtils.IsUpTendency(g, diPlus, diMinus))
+                .ToList();
+            IEnumerable<DateTime> upGroupMaxCandles = upGroups.Any()
+                ? upGroups.MaxBy(group => ProvidersUtils.GetPriceVariation(group.ToList(), candleSeries))
                 : null;
-            IGrouping<int, DateValue> downGroupMaxCandles = downGroups.Any()
-                ? downGroups.MaxBy(group => group.Count())
+            List<IEnumerable<DateTime>> downGroups = groups
+                .Where(g => ProvidersUtils.IsDownTendency(g, diPlus, diMinus))
+                .ToList();
+            IEnumerable<DateTime> downGroupMaxCandles = downGroups.Any()
+                ? downGroups.MaxBy(group => -ProvidersUtils.GetPriceVariation(group.ToList(), candleSeries, upTendency: false))
                 : null;
 
             double upPriceVariation = upGroupMaxCandles != null
-                ? candleSeries[upGroupMaxCandles.Max(dv => dv.Date)].Min - candleSeries[upGroupMaxCandles.Min(dv => dv.Date)].Max
+                ? ProvidersUtils.GetPriceVariation(upGroupMaxCandles.ToList(), candleSeries)
                 : 0;
             double downPriceVariation = downGroupMaxCandles != null
-                ? candleSeries[downGroupMaxCandles.Max(dv => dv.Date)].Min - candleSeries[downGroupMaxCandles.Min(dv => dv.Date)].Max
+                ? ProvidersUtils.GetPriceVariation(downGroupMaxCandles.ToList(), candleSeries, upTendency: false)
                 : 0;
             return new Statistic("Price variation adx positive slope"
                 , upPriceVariation

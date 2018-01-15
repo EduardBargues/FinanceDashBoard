@@ -9,10 +9,10 @@ namespace DashBoard.PlotViewProviders
 {
     public class CandleQuantityAdxSustainedSlopeDataProvider : I2DimensionsDataProvider
     {
-        private CandleTimeSeries series;
-        private TimeSeries adx;
-        private TimeSeries diPlus;
-        private TimeSeries diMinus;
+        private readonly CandleTimeSeries series;
+        private readonly TimeSeries adx;
+        private readonly TimeSeries diPlus;
+        private readonly TimeSeries diMinus;
 
         public CandleQuantityAdxSustainedSlopeDataProvider(CandleTimeSeries series, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
         {
@@ -24,33 +24,29 @@ namespace DashBoard.PlotViewProviders
 
         public IEnumerable<(double, double)> GetUpData()
         {
-            (List<IGrouping<int, DateValue>> upGroups
-                , List<IGrouping<int, DateValue>> downGroups) = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus);
+            IEnumerable<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus);
 
-            return upGroups
+            return groups
+                .Where(g => ProvidersUtils.IsUpTendency(g, diPlus, diMinus))
                 .Select(group =>
                 {
-                    DateTime lastDate = group.Max(dv => dv.Date);
-                    DateTime firstDate = group.Min(dv => dv.Date);
-                    Candle lastCandle = series[lastDate];
-                    Candle firstCandle = series[firstDate];
-                    return ((double)group.Count(), lastCandle.Min - firstCandle.Max);
+                    List<DateTime> dates = group.ToList();
+                    double priceVariation = ProvidersUtils.GetPriceVariation(dates, series, true);
+                    return ((double)dates.Count, priceVariation);
                 });
         }
 
         public IEnumerable<(double, double)> GetDownData()
         {
-            (List<IGrouping<int, DateValue>> upGroups
-                , List<IGrouping<int, DateValue>> downGroups) = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus);
+            IEnumerable<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus);
 
-            return downGroups
+            return groups
+                .Where(g => ProvidersUtils.IsDownTendency(g, diPlus, diMinus))
                 .Select(group =>
                 {
-                    DateTime lastDate = group.Max(dv => dv.Date);
-                    DateTime firstDate = group.Min(dv => dv.Date);
-                    Candle lastCandle = series[lastDate];
-                    Candle firstCandle = series[firstDate];
-                    return ((double)group.Count(), lastCandle.Min - firstCandle.Max);
+                    List<DateTime> dates = group.ToList();
+                    double priceVariation = ProvidersUtils.GetPriceVariation(dates, series, true);
+                    return ((double)dates.Count, priceVariation);
                 });
         }
     }

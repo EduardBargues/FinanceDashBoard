@@ -117,6 +117,7 @@
     <Compile Include="SeriesIndicatorCtl.Designer.cs">
       <DependentUpon>SeriesIndicatorCtl.cs</DependentUpon>
     </Compile>
+    <Compile Include="StatisticProviders\BenefitFollowingStrategyProvider.cs" />
     <Compile Include="StatisticProviders\CandleBodyAverageProvider.cs" />
     <Compile Include="StatisticProviders\CandleBodyStandardDeviationProvider.cs" />
     <Compile Include="StatisticProviders\CandleQuantityAdxSustainedSlopeProvider.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="StatisticProviders\CandleQuantityProvider.cs" />
     <Compile Include="StatisticProviders\CandleRangeAverageProvider.cs" />
     <Compile Include="StatisticProviders\CandleRangeStandardDeviationProvider.cs" />
+    <Compile Include="Strategies\IPatchSelector.cs" />
     <Compile Include="StatisticProviders\IPlotableDataProvider.cs" />
     <Compile Include="StatisticProviders\DirectionalIndicatorMaxValueProvider.cs" />
     <Compile Include="StatisticProviders\ProvidersUtils.cs" />
@@ -137,6 +139,7 @@
     </Compile>
     <Compile Include="StatisticsPresenter.cs" />
     <Compile Include="StatisticProviders\PriceVariationAdxSustainedSlopeMaxProvider.cs" />
+    <Compile Include="Strategies\PatchSelector.cs" />
     <Compile Include="UtilsPresenter.cs" />
     <EmbeddedResource Include="DailyCtl.resx">
       <DependentUpon>DailyCtl.cs</DependentUpon>

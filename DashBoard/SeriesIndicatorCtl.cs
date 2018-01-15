@@ -24,7 +24,11 @@ namespace DashBoard
             IEnumerable<TimeSeriesPlotInfo> infos = indicators
                 .Select(item => TimeSeriesPlotInfo.Create(series: item.Item1, color: item.Item2));
             PlotView indicatorPlotView = TimeSeries.GetPlotView(infos);
-
+            LinearAxis ya = new LinearAxis();
+            ya.MajorStep = 0.25;
+            ya.MajorGridlineStyle = LineStyle.LongDash;
+            ya.MajorGridlineColor = OxyColors.Gray;
+            indicatorPlotView.Model.Axes.Add(ya);
 
             splitContainer.Panel2.Controls.Clear();
             splitContainer.Panel2.Controls.Add(indicatorPlotView);
