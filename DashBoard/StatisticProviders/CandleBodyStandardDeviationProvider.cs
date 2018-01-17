@@ -1,5 +1,6 @@
 ﻿using CandleTimeSeriesAnalysis;
 using CommonUtils;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DashBoard.StatisticProviders
@@ -14,13 +15,15 @@ namespace DashBoard.StatisticProviders
         }
         public Statistic GetStatistic()
         {
+            List<Candle> upCandles = series.Candles
+                .Where(candle => candle.GoesUp)
+                .ToList();
+            List<Candle> downCandles = series.Candles
+                .Where(candle => candle.GoesDown)
+                .ToList();
             return new Statistic("Candle Body St. Dev."
-                , series.Candles
-                    .Where(candle => candle.GoesUp)
-                    .Deviation(candle => candle.Body)
-                , series.Candles
-                    .Where(candle => candle.GoesDown)
-                    .Deviation(candle => candle.Body));
+                , upCandles.Any() ? upCandles.Deviation(candle => candle.Body) : 0
+                , downCandles.Any() ? downCandles.Deviation(candle => candle.Body) : 0);
         }
     }
 }

@@ -35,6 +35,7 @@ namespace DashBoard
             periodIndicator.Value = 14;
             smoothingPeriod.Value = 14;
             refreshButton.Click += (a, b) => RefreshRequest?.Invoke();
+            gridDays.SelectionChanged += (a, b) => RefreshRequest?.Invoke();
 
             statisticsCtl = new StatisticsCtl()
             {
