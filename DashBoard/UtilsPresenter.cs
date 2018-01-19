@@ -1,11 +1,9 @@
-﻿using System;
+﻿using CandleTimeSeriesAnalysis;
+using CandleTimeSeriesAnalysis.Indicators;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CandleTimeSeriesAnalysis;
-using CandleTimeSeriesAnalysis.Indicators;
 using TimeSeriesAnalysis;
 
 namespace DashBoard
@@ -26,7 +24,7 @@ namespace DashBoard
                 startDate = series.Candles.Min(candle => candle.Start);
 
             DirectionalIndicatorPlus diPlus =
-                DirectionalIndicatorPlus.Create(indicatorPeriod, smoothingPeriod);
+                DirectionalIndicatorPlus.Create(indicatorPeriod);
             TimeSeries diPlusSeries = series.Candles
                 .Where((candle, index) => index > 0 &&
                                           candle.Start >= startDate)
@@ -35,7 +33,7 @@ namespace DashBoard
             yield return (diPlusSeries, Color.Blue);
 
             DirectionalIndicatorMinus diMinus =
-                DirectionalIndicatorMinus.Create(indicatorPeriod, smoothingPeriod);
+                DirectionalIndicatorMinus.Create(indicatorPeriod);
             TimeSeries diMinusSeries = series.Candles
                 .Where((candle, index) => index > 0 &&
                                           candle.Start >= startDate)
@@ -43,7 +41,7 @@ namespace DashBoard
                 .ToTimeSeries(DiMinusIndicatorName);
             yield return (diMinusSeries, Color.Red);
 
-            DirectionalMovementIndex dx = DirectionalMovementIndex.Create(indicatorPeriod, smoothingPeriod);
+            DirectionalMovementIndex dx = DirectionalMovementIndex.Create(indicatorPeriod);
             TimeSeries dxSeries = series.Candles
                 .Where((candle, index) => index > 0 &&
                                           candle.Start >= startDate)
