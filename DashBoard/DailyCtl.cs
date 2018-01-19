@@ -37,7 +37,7 @@ namespace DashBoard
             refreshButton.Click += (a, b) => RefreshRequest?.Invoke();
             gridDays.SelectionChanged += (a, b) => RefreshRequest?.Invoke();
 
-            statisticsCtl = new StatisticsCtl()
+            statisticsCtl = new StatisticsCtl
             {
                 Dock = DockStyle.Fill,
                 Visible = true,
@@ -63,12 +63,15 @@ namespace DashBoard
             gridDays.Columns[0].DataPropertyName = nameof(DateTime.Date);
             gridDays.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridDays.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            int rowCount = gridDays.RowCount;
+            if (rowCount > 1)
+                gridDays.Rows[rowCount - 1].Selected = true;
             gridDays.Refresh();
         }
 
-        public void LoadData(CandleTimeSeries series, IEnumerable<(TimeSeries, Color)> indicators)
+        public void LoadData(CandleTimeSeries series, TimeSeries buySeries, TimeSeries sellSeries, IEnumerable<(TimeSeries, Color)> indicators)
         {
-            seriesIndicatorCtl.LoadData(series, indicators);
+            seriesIndicatorCtl.LoadData(series, buySeries, sellSeries, indicators);
         }
     }
 }

@@ -1,14 +1,8 @@
-﻿using System;
+﻿using CandleTimeSeriesAnalysis;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CandleTimeSeriesAnalysis;
-using OxyPlot.WindowsForms;
 using TimeSeriesAnalysis;
 
 namespace DashBoard
@@ -33,7 +27,7 @@ namespace DashBoard
 
         public void LoadData(CandleTimeSeries series, IEnumerable<(TimeSeries, Color)> indicators)
         {
-            seriesIndicatorCtl.LoadData(series, indicators);
+            seriesIndicatorCtl.LoadData(series, null, null, indicators);
         }
     }
 }

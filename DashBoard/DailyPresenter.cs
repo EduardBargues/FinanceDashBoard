@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CandleTimeSeriesAnalysis;
+using CommonUtils;
+using DashBoard.StatisticProviders;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CandleTimeSeriesAnalysis;
 using TimeSeriesAnalysis;
 
 namespace DashBoard
@@ -20,7 +20,7 @@ namespace DashBoard
         TimeSpan CandlesDuration { get; }
         int CandlesTicks { get; }
         double CandlesVolume { get; }
-        void LoadData(CandleTimeSeries series, IEnumerable<(TimeSeries, Color)> indicators);
+        void LoadData(CandleTimeSeries series, TimeSeries buySeries, TimeSeries sellSeries, IEnumerable<(TimeSeries, Color)> indicators);
         void LoadDays(IEnumerable<DateTime> days);
         bool DaysLoaded { get; }
         int Period { get; }
@@ -70,9 +70,44 @@ namespace DashBoard
                     , view.SmoothingPeriod
                     , day.Date)
                     .ToList();
+                (TimeSeries buyTimeSeries, TimeSeries sellTimeSeries) = GetBuyAndSellTimeSeries(daySeries, indicators);
                 statisticsPresenter.LoadData(daySeries, indicators.Select(ind => ind.Item1));
-                view.LoadData(daySeries, indicators);
+                view.LoadData(daySeries, buyTimeSeries, sellTimeSeries, indicators);
             }
+        }
+
+        private (TimeSeries, TimeSeries) GetBuyAndSellTimeSeries(CandleTimeSeries series, IEnumerable<(TimeSeries, Color)> indicators)
+        {
+            Dictionary<string, TimeSeries> indicatorsByName = indicators
+                .ToDictionary(item => item.Item1.Name,
+                              item => item.Item1);
+            TimeSeries adx = indicatorsByName[UtilsPresenter.AdxIndicatorName];
+            TimeSeries diMinus = indicatorsByName[UtilsPresenter.DiMinusIndicatorName];
+            TimeSeries diPlus = indicatorsByName[UtilsPresenter.DiPlusIndicatorName];
+
+            List<IEnumerable<DateTime>> patches = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus)
+                .ToList();
+            Dictionary<bool, List<DateValue>> datesValuesByAction = patches
+                .SelectMany(patch =>
+                {
+                    List<DateTime> dates = patch.ToList();
+                    bool isUpTendency = ProvidersUtils.IsUpTendency(dates, diPlus, diMinus);
+                    DateTime firstDate = dates.Min(d => d);
+                    DateTime lastDate = dates.Max(d => d);
+                    return new[] { firstDate, lastDate }
+                        .Select(date => new
+                        {
+                            Buy = date == firstDate ? isUpTendency : !isUpTendency,
+                            DateValue = new DateValue(date, series[date].Close)
+                        });
+                })
+                .GroupBy(action => action.Buy)
+                .ToDictionary(g => g.Key, g => g.Select(action => action.DateValue).ToList());
+            TimeSeries buyTimeSeries = datesValuesByAction.GetValueOrDefault(true)
+                ?.ToTimeSeries("Buy");
+            TimeSeries sellTimeSeries = datesValuesByAction.GetValueOrDefault(false)
+                ?.ToTimeSeries("Sell");
+            return (buyTimeSeries, sellTimeSeries);
         }
 
         private (CandleTimeSeries, CandleTimeSeries) CandleTimeSeries(List<Trade> dayTrades, DateTime day, List<Trade> dayBeforeTrades)
@@ -105,7 +140,6 @@ namespace DashBoard
 
         private CandleTimeSeries GetCandleTimeSeriesByDuration(IEnumerable<Trade> trades, TimeSpan candleDuration, DateTime firstCandleStart)
         {
-
             return trades
                 .ToCandlesByDuration(candleDuration, firstCandleStart)
                 .ToCandleTimeSeries($"{firstCandleStart:yyyy/MM/dd} - By duration");

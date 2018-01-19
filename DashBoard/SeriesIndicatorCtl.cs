@@ -1,8 +1,10 @@
 ﻿using CandleTimeSeriesAnalysis;
+using CommonUtils;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -19,7 +21,7 @@ namespace DashBoard
             InitializeComponent();
         }
 
-        public void LoadData(CandleTimeSeries series, IEnumerable<(TimeSeries, Color)> indicators)
+        public void LoadData(CandleTimeSeries series, TimeSeries buySeries, TimeSeries sellSeries, IEnumerable<(TimeSeries, Color)> indicators)
         {
             IEnumerable<TimeSeriesPlotInfo> infos = indicators
                 .Select(item => TimeSeriesPlotInfo.Create(series: item.Item1, color: item.Item2));
@@ -64,8 +66,26 @@ namespace DashBoard
             }
 
             PlotView seriesPlotView = CandleTimeSeries.GetPlotView(CandleTimeSeriesPlotInfo.Create(series), onAxisChanged);
+            if (buySeries != null)
+                AddTimeSeries(buySeries, seriesPlotView, OxyColors.Blue, MarkerType.Circle);
+            if (sellSeries != null)
+                AddTimeSeries(sellSeries, seriesPlotView, OxyColors.GreenYellow, MarkerType.Triangle);
             splitContainer.Panel1.Controls.Clear();
             splitContainer.Panel1.Controls.Add(seriesPlotView);
+        }
+
+        private static void AddTimeSeries(TimeSeries series, PlotView seriesPlotView, OxyColor markerColor, MarkerType marker)
+        {
+            LineSeries lineSeries = Plotter.GetDataPointSeries<LineSeries>(
+                (nameof(LineSeries.Title), series.Name)
+                , (nameof(LineSeries.MarkerType), marker)
+                , (nameof(LineSeries.MarkerFill), markerColor)
+                , (nameof(LineSeries.MarkerSize), 5)
+                , (nameof(LineSeries.LineStyle), LineStyle.None)
+            );
+            foreach (DateTime date in series.Dates)
+                lineSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(date), series[date]));
+            seriesPlotView.Model.Series.Add(lineSeries);
         }
     }
 }

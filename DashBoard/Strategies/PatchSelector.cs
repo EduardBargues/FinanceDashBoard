@@ -14,13 +14,13 @@ namespace DashBoard.Strategies
             IEnumerable<IGrouping<int, DateValue>> patches = adx.Values
                 .Where((dv, index) => index > 0 &&
                                       index < adx.Count() - 1)
-                .GroupAdjacent(dv => Math.Sign(adx.GetDerivative(dv.Date)))
-                .Where(group => @group.Key > 0);
+                .GroupAdjacent(dv => Math.Sign(adx.GetDerivative(dv.Date, DifferentiationMode.Left, TimeScale.Minutes)))
+                .Where(group => group.Key > 0);
 
             foreach (IGrouping<int, DateValue> patch in patches)
             {
                 List<DateTime> dateValues = patch
-                    .Where(dv => adx[dv.Date] > 0.25)
+                    //.Where(dv => adx[dv.Date] > 0.25)
                     .Select(dv => dv.Date)
                     .ToList();
                 if (dateValues.Any())
