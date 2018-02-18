@@ -72,55 +72,79 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategorizationCtl.cs">
+    <Compile Include="3-ClassificationDayTab\AdxInputsCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CategorizationCtl.Designer.cs">
-      <DependentUpon>CategorizationCtl.cs</DependentUpon>
+    <Compile Include="3-ClassificationDayTab\AdxInputsCtl.Designer.cs">
+      <DependentUpon>AdxInputsCtl.cs</DependentUpon>
     </Compile>
-    <Compile Include="DailyCtl.cs">
+    <Compile Include="3-ClassificationDayTab\ClassificationDayCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DailyCtl.Designer.cs">
+    <Compile Include="3-ClassificationDayTab\ClassificationDayCtl.Designer.cs">
+      <DependentUpon>ClassificationDayCtl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="2-DailyTab\DailyCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="2-DailyTab\DailyCtl.Designer.cs">
       <DependentUpon>DailyCtl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="0-Generic\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="0-Generic\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="HistoryCtl.cs">
+    <Compile Include="1-HistoryTab\HistoryCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="HistoryCtl.Designer.cs">
+    <Compile Include="1-HistoryTab\HistoryCtl.Designer.cs">
       <DependentUpon>HistoryCtl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeriesIndicatorCtl.cs">
+    <Compile Include="3-ClassificationDayTab\MovingAverageInputsCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SeriesIndicatorCtl.Designer.cs">
+    <Compile Include="3-ClassificationDayTab\MovingAverageInputsCtl.Designer.cs">
+      <DependentUpon>MovingAverageInputsCtl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="0-Generic\Program.cs" />
+    <Compile Include="3-ClassificationDayTab\SelectionMethodInputCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="3-ClassificationDayTab\SelectionMethodInputCtl.Designer.cs">
+      <DependentUpon>SelectionMethodInputCtl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="0-Generic\SeriesIndicatorCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="0-Generic\SeriesIndicatorCtl.Designer.cs">
       <DependentUpon>SeriesIndicatorCtl.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatisticsCtl.cs">
+    <Compile Include="2-DailyTab\StatisticsCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatisticsCtl.Designer.cs">
+    <Compile Include="2-DailyTab\StatisticsCtl.Designer.cs">
       <DependentUpon>StatisticsCtl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CategorizationCtl.resx">
-      <DependentUpon>CategorizationCtl.cs</DependentUpon>
+    <EmbeddedResource Include="3-ClassificationDayTab\ClassificationDayCtl.resx">
+      <DependentUpon>ClassificationDayCtl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DailyCtl.resx">
+    <EmbeddedResource Include="2-DailyTab\DailyCtl.resx">
       <DependentUpon>DailyCtl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="0-Generic\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HistoryCtl.resx">
+    <EmbeddedResource Include="1-HistoryTab\HistoryCtl.resx">
       <DependentUpon>HistoryCtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3-ClassificationDayTab\MovingAverageInputsCtl.resx">
+      <DependentUpon>MovingAverageInputsCtl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="3-ClassificationDayTab\SelectionMethodInputCtl.resx">
+      <DependentUpon>SelectionMethodInputCtl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -131,10 +155,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="SeriesIndicatorCtl.resx">
+    <EmbeddedResource Include="0-Generic\SeriesIndicatorCtl.resx">
       <DependentUpon>SeriesIndicatorCtl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatisticsCtl.resx">
+    <EmbeddedResource Include="2-DailyTab\StatisticsCtl.resx">
       <DependentUpon>StatisticsCtl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

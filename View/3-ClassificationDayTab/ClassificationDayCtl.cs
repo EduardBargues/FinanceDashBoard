@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace View
 {
-    public partial class CategorizationCtl : UserControl, ICategorizationView
+    public partial class ClassificationDayCtl : UserControl, IDailyClassificationView
     {
-        public CategorizationCtl()
+        public ClassificationDayCtl()
         {
             InitializeComponent();
         }

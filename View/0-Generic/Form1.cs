@@ -9,7 +9,7 @@ namespace View
         private MainPresenter mainPresenter;
         private readonly HistoryCtl historyCtl;
         private readonly DailyCtl dailyCtl;
-        private readonly CategorizationCtl categorizationCtl;
+        private readonly ClassificationDayCtl classificationDayCtl;
 
         public event Action DailyPageGotFocus;
 
@@ -40,21 +40,22 @@ namespace View
             };
             dailyPage.Controls.Add(dailyCtl);
 
-            TabPage categorizationPage = new TabPage
+            TabPage classificationPage = new TabPage
             {
                 Text = "CATEGORIZATION"
             };
-            categorizationCtl = new CategorizationCtl()
+            classificationDayCtl = new ClassificationDayCtl()
             {
                 Dock = DockStyle.Fill,
                 Visible = true
             };
-            categorizationPage.Controls.Add(categorizationCtl);
+            classificationPage.Controls.Add(classificationDayCtl);
 
-            TabControl tabControl = new TabControl();
-            tabControl.Dock = DockStyle.Fill;
+            TabControl tabControl = new TabControl { Dock = DockStyle.Fill };
             tabControl.TabPages.Add(historyPage);
             tabControl.TabPages.Add(dailyPage);
+            tabControl.TabPages.Add(classificationPage);
+
             tabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
 
             Controls.Add(tabControl);
@@ -78,9 +79,9 @@ namespace View
         {
             return dailyCtl;
         }
-        public ICategorizationView GetCategorizationView()
+        public IDailyClassificationView GetCategorizationView()
         {
-            return categorizationCtl;
+            return classificationDayCtl;
         }
     }
 }

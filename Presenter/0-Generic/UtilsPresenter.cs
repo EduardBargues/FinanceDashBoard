@@ -15,6 +15,9 @@ namespace Presenter
         public static string DxIndicatorName = "DX";
         public static string AdxIndicatorName = "ADX";
 
+        public const string AdxMethodName = "Average Directional Index";
+        public const string MovingAverageMethodName = "Moving Averages";
+
         public static IEnumerable<(TimeSeries, Color)> GetIndicators(CandleTimeSeries series
             , int indicatorPeriod
             , int smoothingPeriod

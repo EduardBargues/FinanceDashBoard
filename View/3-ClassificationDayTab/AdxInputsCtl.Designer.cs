@@ -1,6 +1,6 @@
 ﻿namespace View
 {
-    partial class CategorizationCtl
+    partial class AdxInputsCtl
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,16 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // CategorizationCtl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "CategorizationCtl";
-            this.Size = new System.Drawing.Size(2660, 1481);
-            this.ResumeLayout(false);
-
         }
 
         #endregion
