@@ -20,7 +20,11 @@ namespace Presenter
             this.view = view;
             dailyPresenter = new DailyPresenter(view.GetDailyView());
             historyPresenter = new HistoryPresenter(view.GetHistoryView());
-            this.view.DailyPageGotFocus += () => dailyPresenter.LoadDays();
+            this.view.DailyPageGotFocus += () =>
+            {
+                dailyPresenter.LoadDays();
+                dailyPresenter.LoadStrategies();
+            };
         }
     }
 }

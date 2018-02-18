@@ -41,6 +41,7 @@ namespace Presenter
         private CandleTimeSeries series;
         private TimeSeries diPlus;
         private TimeSeries diMinus;
+        private TimeSeries dx;
         private TimeSeries adx;
         public void LoadData(CandleTimeSeries candleSeries, IEnumerable<TimeSeries> indicators)
         {
@@ -49,6 +50,7 @@ namespace Presenter
             diPlus = inds[UtilsPresenter.DiPlusIndicatorName];
             diMinus = inds[UtilsPresenter.DiMinusIndicatorName];
             adx = inds[UtilsPresenter.AdxIndicatorName];
+            dx = inds[UtilsPresenter.DxIndicatorName];
             series = candleSeries;
 
             DataTable table = GetStatistics();
@@ -81,9 +83,9 @@ namespace Presenter
                 ,(new CandleRangeStandardDeviationProvider(series), new HistogramPlotViewProvider(new CandleRangeDataProvider(series),"Candle range","$",view.Groups))
                 ,(new CandleQuantityDiPlusVsDiMinusProvider(diPlus,diMinus), new HistogramPlotViewProvider(new CandleQuantityDiPlusVsDiMinusDataProvider(series,diPlus,diMinus), "Candles Di+ vs Di-","",view.Groups))
                 ,(new DirectionalIndicatorMaxValueProvider(diPlus,diMinus), new HistogramPlotViewProvider(new DirectionalIndicatorMaxValueDataProvider(diPlus,diMinus), "Di+ vs Di-","",view.Groups))
-                ,(new CandleQuantityAdxSustainedSlopeProvider(adx,diPlus,diMinus), new ScatterPlotViewProvider(new CandleQuantityAdxSustainedSlopeDataProvider(series, adx, diPlus, diMinus), "Patches","$","#"))
-                ,(new PriceVariationAdxSustainedSlopeMaxProvider(series,adx,diPlus,diMinus),new ScatterPlotViewProvider(new CandleQuantityAdxSustainedSlopeDataProvider(series, adx, diPlus, diMinus), "Patches","$","#"))
-                ,(new BenefitFollowingStrategyProvider(series,adx,diPlus,diMinus), new ScatterPlotViewProvider(new CandleQuantityAdxSustainedSlopeDataProvider(series, adx, diPlus, diMinus), "Patches","$","#"))
+                ,(new CandleQuantityAdxSustainedSlopeProvider(dx, adx,diPlus,diMinus), new ScatterPlotViewProvider(new CandleQuantityAdxSustainedSlopeDataProvider(series, dx, adx, diPlus, diMinus), "Patches","$","#"))
+                ,(new PriceVariationAdxSustainedSlopeMaxProvider(series, dx,adx,diPlus,diMinus),new ScatterPlotViewProvider(new CandleQuantityAdxSustainedSlopeDataProvider(series, dx, adx, diPlus, diMinus), "Patches","$","#"))
+                ,(new BenefitFollowingStrategyProvider(series,dx,adx,diPlus,diMinus), new ScatterPlotViewProvider(new CandleQuantityAdxSustainedSlopeDataProvider(series, dx, adx, diPlus, diMinus), "Patches","$","#"))
             };
 
             foreach ((IStatisticProvider, IPlotViewProvider) tuple in providers)

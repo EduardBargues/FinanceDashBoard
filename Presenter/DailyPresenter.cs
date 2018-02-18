@@ -2,6 +2,7 @@
 using CommonUtils;
 using Model;
 using Model.StatisticProviders;
+using Model.Strategies;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -26,12 +27,19 @@ namespace Presenter
         bool DaysLoaded { get; }
         int Period { get; }
         int SmoothingPeriod { get; }
+        void LoadStrategies(IEnumerable<string> strategiesNames);
     }
 
     public class DailyPresenter
     {
         private readonly IDailyView view;
         private readonly StatisticsPresenter statisticsPresenter;
+
+        private List<Strategy> strategies = new List<Strategy>()
+        {
+            new StrategyEduard("EDUARD ST"),
+            new StrategyVicente("VICENTE ST"),
+        };
 
         public DailyPresenter(IDailyView view)
         {
@@ -49,6 +57,12 @@ namespace Presenter
                     .Distinct();
                 view.LoadDays(days);
             }
+        }
+
+        public void LoadStrategies()
+        {
+            IEnumerable<string> names = strategies.Select(st => st.Name);
+            view.LoadStrategies(names);
         }
 
         private void View_RefreshRequest()
@@ -82,11 +96,12 @@ namespace Presenter
             Dictionary<string, TimeSeries> indicatorsByName = indicators
                 .ToDictionary(item => item.Item1.Name,
                               item => item.Item1);
+            TimeSeries dx = indicatorsByName[UtilsPresenter.DxIndicatorName];
             TimeSeries adx = indicatorsByName[UtilsPresenter.AdxIndicatorName];
             TimeSeries diMinus = indicatorsByName[UtilsPresenter.DiMinusIndicatorName];
             TimeSeries diPlus = indicatorsByName[UtilsPresenter.DiPlusIndicatorName];
 
-            List<IEnumerable<DateTime>> patches = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus)
+            List<IEnumerable<DateTime>> patches = ProvidersUtils.GetGroupedPatches(dx, adx, diPlus, diMinus)
                 .ToList();
             Dictionary<bool, List<DateValue>> datesValuesByAction = patches
                 .SelectMany(patch =>

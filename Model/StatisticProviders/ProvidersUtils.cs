@@ -9,11 +9,11 @@ namespace Model.StatisticProviders
 {
     public static class ProvidersUtils
     {
-        private static readonly IPatchSelector Selector = new PatchSelector();
+        private static readonly IPatchSelector Selector = new DxAndAdxPatchSelector(0.5);
 
-        public static IEnumerable<IEnumerable<DateTime>> GetGroupedPatches(TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
+        public static IEnumerable<IEnumerable<DateTime>> GetGroupedPatches(TimeSeries dx, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
         {
-            IEnumerable<IEnumerable<DateTime>> strongTendencyGroups = Selector.GetGoodPatches(adx, diPlus, diMinus);
+            IEnumerable<IEnumerable<DateTime>> strongTendencyGroups = Selector.GetGoodPatches(dx, adx, diPlus, diMinus);
             return strongTendencyGroups;
         }
 

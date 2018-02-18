@@ -48,7 +48,7 @@ namespace Presenter.PlotViewProviders
                 , (nameof(ScatterSeries.MarkerType), MarkerType.Circle)
                 );
             dataProvider.GetDownData()
-                .Select(data => new ScatterPoint(data.Item1, data.Item2))
+                .Select(data => new ScatterPoint(data.Item1, data.Item2, tag: "hola"))
                 .ForEach(p => downSeries.Points.Add(p));
             model.Series.Add(downSeries);
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = xlabel });

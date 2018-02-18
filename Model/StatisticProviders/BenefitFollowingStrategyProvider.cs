@@ -9,13 +9,15 @@ namespace Model.StatisticProviders
     public class BenefitFollowingStrategyProvider : IStatisticProvider
     {
         private readonly CandleTimeSeries series;
+        private TimeSeries dx;
         private TimeSeries adx;
         private TimeSeries diPlus;
         private TimeSeries diMinus;
 
-        public BenefitFollowingStrategyProvider(CandleTimeSeries series, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
+        public BenefitFollowingStrategyProvider(CandleTimeSeries series, TimeSeries dx, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
         {
             this.series = series;
+            this.dx = dx;
             this.adx = adx;
             this.diPlus = diPlus;
             this.diMinus = diMinus;
@@ -23,7 +25,7 @@ namespace Model.StatisticProviders
 
         public Statistic GetStatistic()
         {
-            List<IEnumerable<DateTime>> patches = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus)
+            List<IEnumerable<DateTime>> patches = ProvidersUtils.GetGroupedPatches(dx, adx, diPlus, diMinus)
                 .ToList();
             double benefitUp = patches
                 .Where(patch => ProvidersUtils.IsUpTendency(patch, diPlus, diMinus))

@@ -85,7 +85,8 @@
     <Compile Include="StatisticProviders\ProvidersUtils.cs" />
     <Compile Include="StatisticProviders\Statistic.cs" />
     <Compile Include="Strategies\IPatchSelector.cs" />
-    <Compile Include="Strategies\PatchSelector.cs" />
+    <Compile Include="Strategies\DxAndAdxPatchSelector.cs" />
+    <Compile Include="Strategies\StrategyVicente.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

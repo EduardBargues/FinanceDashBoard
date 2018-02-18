@@ -69,6 +69,11 @@ namespace View
             gridDays.Refresh();
         }
 
+        public void LoadStrategies(IEnumerable<string> strategiesNames)
+        {
+            strategiesCombobox.DataSource = strategiesNames.ToList();
+            strategiesCombobox.Refresh();
+        }
         public void LoadData(CandleTimeSeries series, TimeSeries buySeries, TimeSeries sellSeries, IEnumerable<(TimeSeries, Color)> indicators)
         {
             seriesIndicatorCtl.LoadData(series, buySeries, sellSeries, indicators);

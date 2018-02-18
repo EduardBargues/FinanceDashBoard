@@ -10,13 +10,15 @@ namespace Model.StatisticProviders
     public class PriceVariationAdxSustainedSlopeMaxProvider : IStatisticProvider
     {
         private readonly CandleTimeSeries candleSeries;
+        private readonly TimeSeries dx;
         private readonly TimeSeries adx;
         private readonly TimeSeries diPlus;
         private readonly TimeSeries diMinus;
 
-        public PriceVariationAdxSustainedSlopeMaxProvider(CandleTimeSeries candleSeries, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
+        public PriceVariationAdxSustainedSlopeMaxProvider(CandleTimeSeries candleSeries, TimeSeries dx, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
         {
             this.candleSeries = candleSeries;
+            this.dx = dx;
             this.adx = adx;
             this.diPlus = diPlus;
             this.diMinus = diMinus;
@@ -24,7 +26,7 @@ namespace Model.StatisticProviders
 
         public Statistic GetStatistic()
         {
-            List<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus)
+            List<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(dx, adx, diPlus, diMinus)
                 .ToList();
             List<IEnumerable<DateTime>> upGroups = groups
                 .Where(g => ProvidersUtils.IsUpTendency(g, diPlus, diMinus))

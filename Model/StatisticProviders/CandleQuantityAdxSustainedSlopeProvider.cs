@@ -8,12 +8,14 @@ namespace Model.StatisticProviders
 {
     public class CandleQuantityAdxSustainedSlopeProvider : IStatisticProvider
     {
+        private readonly TimeSeries dx;
         private readonly TimeSeries adx;
         private readonly TimeSeries diPlus;
         private readonly TimeSeries diMinus;
 
-        public CandleQuantityAdxSustainedSlopeProvider(TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
+        public CandleQuantityAdxSustainedSlopeProvider(TimeSeries dx, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
         {
+            this.dx = dx;
             this.adx = adx;
             this.diPlus = diPlus;
             this.diMinus = diMinus;
@@ -21,7 +23,7 @@ namespace Model.StatisticProviders
 
         public Statistic GetStatistic()
         {
-            List<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus).ToList();
+            List<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(dx, adx, diPlus, diMinus).ToList();
 
             List<IEnumerable<DateTime>> upGroups = groups
                 .Where(g => ProvidersUtils.IsUpTendency(g, diPlus, diMinus))

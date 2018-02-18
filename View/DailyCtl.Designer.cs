@@ -44,7 +44,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.smoothingPeriod = new System.Windows.Forms.NumericUpDown();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.seriesIndicatorCtl = new SeriesIndicatorCtl();
+            this.seriesIndicatorCtl = new View.SeriesIndicatorCtl();
+            this.strategiesCombobox = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.candlesDurationUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.candlesVolumeUpDown)).BeginInit();
@@ -149,14 +151,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridDays.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridDays.Location = new System.Drawing.Point(0, 303);
+            this.gridDays.Location = new System.Drawing.Point(0, 358);
             this.gridDays.Name = "gridDays";
             this.gridDays.RowTemplate.Height = 40;
-            this.gridDays.Size = new System.Drawing.Size(523, 893);
+            this.gridDays.Size = new System.Drawing.Size(523, 838);
             this.gridDays.TabIndex = 0;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.strategiesCombobox);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.groupBox);
             this.panel1.Controls.Add(this.gridDays);
@@ -233,6 +237,23 @@
             this.seriesIndicatorCtl.Size = new System.Drawing.Size(1453, 594);
             this.seriesIndicatorCtl.TabIndex = 9;
             // 
+            // strategiesCombobox
+            // 
+            this.strategiesCombobox.FormattingEnabled = true;
+            this.strategiesCombobox.Location = new System.Drawing.Point(161, 304);
+            this.strategiesCombobox.Name = "strategiesCombobox";
+            this.strategiesCombobox.Size = new System.Drawing.Size(362, 39);
+            this.strategiesCombobox.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 307);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(152, 32);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Strategies:";
+            // 
             // DailyCtl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -248,6 +269,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.candlesTicksUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridDays)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.periodIndicator)).EndInit();
@@ -277,5 +299,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown smoothingPeriod;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox strategiesCombobox;
     }
 }

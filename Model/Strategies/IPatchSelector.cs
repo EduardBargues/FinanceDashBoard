@@ -6,6 +6,6 @@ namespace Model.Strategies
 {
     public interface IPatchSelector
     {
-        IEnumerable<IEnumerable<DateTime>> GetGoodPatches(TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus);
+        IEnumerable<IEnumerable<DateTime>> GetGoodPatches(TimeSeries dx, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus);
     }
 }

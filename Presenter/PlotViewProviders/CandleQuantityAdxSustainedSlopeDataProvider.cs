@@ -10,13 +10,15 @@ namespace Presenter.PlotViewProviders
     public class CandleQuantityAdxSustainedSlopeDataProvider : I2DimensionsDataProvider
     {
         private readonly CandleTimeSeries series;
+        private readonly TimeSeries dx;
         private readonly TimeSeries adx;
         private readonly TimeSeries diPlus;
         private readonly TimeSeries diMinus;
 
-        public CandleQuantityAdxSustainedSlopeDataProvider(CandleTimeSeries series, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
+        public CandleQuantityAdxSustainedSlopeDataProvider(CandleTimeSeries series, TimeSeries dx, TimeSeries adx, TimeSeries diPlus, TimeSeries diMinus)
         {
             this.series = series;
+            this.dx = dx;
             this.adx = adx;
             this.diPlus = diPlus;
             this.diMinus = diMinus;
@@ -24,7 +26,7 @@ namespace Presenter.PlotViewProviders
 
         public IEnumerable<(double, double)> GetUpData()
         {
-            IEnumerable<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus);
+            IEnumerable<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(dx, adx, diPlus, diMinus);
 
             return groups
                 .Where(g => ProvidersUtils.IsUpTendency(g, diPlus, diMinus))
@@ -38,7 +40,7 @@ namespace Presenter.PlotViewProviders
 
         public IEnumerable<(double, double)> GetDownData()
         {
-            IEnumerable<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(adx, diPlus, diMinus);
+            IEnumerable<IEnumerable<DateTime>> groups = ProvidersUtils.GetGroupedPatches(dx, adx, diPlus, diMinus);
 
             return groups
                 .Where(g => ProvidersUtils.IsDownTendency(g, diPlus, diMinus))
