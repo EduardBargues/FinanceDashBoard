@@ -69,14 +69,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="2-Daily\DailyPresenter.cs" />
-    <Compile Include="1-History\HistoryPresenter.cs" />
-    <Compile Include="3-ClassificationDay\IAdxInputsView.cs" />
-    <Compile Include="3-ClassificationDay\IDailyClassificationView.cs" />
-    <Compile Include="0-Generic\MainPresenter.cs" />
-    <Compile Include="3-ClassificationDay\IMethodSelectorView.cs" />
-    <Compile Include="3-ClassificationDay\IMovingAverageInputsView.cs" />
-    <Compile Include="3-ClassificationDay\SelectionMethodInputPresenter.cs" />
+    <Compile Include="ClassificationDay\AdxDailyClassificationInput.cs" />
+    <Compile Include="ClassificationDay\DailyClassification.cs" />
+    <Compile Include="ClassificationDay\DailyClassificationPresenter.cs" />
+    <Compile Include="ClassificationDay\IDailyClassificationInput.cs" />
+    <Compile Include="ClassificationDay\ITrigger.cs" />
+    <Compile Include="ClassificationDay\MovingAverageDailyClassificationInput.cs" />
+    <Compile Include="ClassificationDay\MovingAverageInputsPresenter.cs" />
+    <Compile Include="Daily\DailyPresenter.cs" />
+    <Compile Include="History\HistoryPresenter.cs" />
+    <Compile Include="ClassificationDay\AdxInputsPresenter.cs" />
+    <Compile Include="ClassificationDay\IAdxInputsView.cs" />
+    <Compile Include="ClassificationDay\IDailyClassificationView.cs" />
+    <Compile Include="Generic\MainPresenter.cs" />
+    <Compile Include="ClassificationDay\IDailyClassificationMethodSelectorView.cs" />
+    <Compile Include="ClassificationDay\IMovingAverageInputsView.cs" />
+    <Compile Include="ClassificationDay\DailyClassificationInputPresenter.cs" />
     <Compile Include="PlotViewProviders\CandleBodyDataProvider.cs" />
     <Compile Include="PlotViewProviders\CandleQuantityAdxSustainedSlopeDataProvider.cs" />
     <Compile Include="PlotViewProviders\CandleQuantityDiPlusVsDiMinusDataProvider.cs" />
@@ -88,8 +96,8 @@
     <Compile Include="PlotViewProviders\IPlotViewProvider.cs" />
     <Compile Include="PlotViewProviders\ScatterPlotViewProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="2-Daily\StatisticsPresenter.cs" />
-    <Compile Include="0-Generic\UtilsPresenter.cs" />
+    <Compile Include="Daily\StatisticsPresenter.cs" />
+    <Compile Include="Generic\UtilsPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

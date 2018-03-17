@@ -13,11 +13,8 @@ namespace Model.StatisticProviders
             this.diPlus = diPlus;
             this.diMinus = diMinus;
         }
-        public Statistic GetStatistic()
-        {
-            return new Statistic("Di max value"
+        public Statistic GetStatistic() => new Statistic("Di max value"
                 , diPlus.Values.Max(dv => dv.Value)
                 , diMinus.Values.Max(dv => dv.Value));
-        }
     }
 }

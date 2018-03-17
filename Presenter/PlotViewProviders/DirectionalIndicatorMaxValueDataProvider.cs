@@ -14,16 +14,10 @@ namespace Presenter.PlotViewProviders
             this.diPlus = diPlus;
             this.diMinus = diMinus;
         }
-        public IEnumerable<double> GetUpData()
-        {
-            return diPlus.Values
+        public IEnumerable<double> GetUpData() => diPlus.Values
                 .Select(dv => dv.Value);
-        }
 
-        public IEnumerable<double> GetDownData()
-        {
-            return diMinus.Values
+        public IEnumerable<double> GetDownData() => diMinus.Values
                 .Select(dv => dv.Value);
-        }
     }
 }

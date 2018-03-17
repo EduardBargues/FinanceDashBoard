@@ -14,11 +14,8 @@ namespace Model.StatisticProviders
             this.diMinus = diMinus;
         }
 
-        public Statistic GetStatistic()
-        {
-            return new Statistic("# Candle DI+ vs. DI-"
+        public Statistic GetStatistic() => new Statistic("# Candle DI+ vs. DI-"
                 , diPlus.Values.Count(dv => dv.Value > diMinus[dv.Date])
                 , diPlus.Values.Count(dv => dv.Value < diMinus[dv.Date]));
-        }
     }
 }

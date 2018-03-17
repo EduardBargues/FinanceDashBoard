@@ -18,18 +18,12 @@ namespace Presenter.PlotViewProviders
             this.diMinus = diMinus;
         }
 
-        public IEnumerable<double> GetUpData()
-        {
-            return series.Candles
+        public IEnumerable<double> GetUpData() => series.Candles
                 .Where(candle => diPlus[candle.Start] > diMinus[candle.Start])
                 .Select(candle => diPlus[candle.Start] - diMinus[candle.Start]);
-        }
 
-        public IEnumerable<double> GetDownData()
-        {
-            return series.Candles
+        public IEnumerable<double> GetDownData() => series.Candles
                 .Where(candle => diPlus[candle.Start] < diMinus[candle.Start])
                 .Select(candle => diMinus[candle.Start] - diPlus[candle.Start]);
-        }
     }
 }

@@ -40,6 +40,20 @@ namespace Model
                 return instance;
             }
         }
+        public IEnumerable<Trade> GetDailyTrades(DateTime date)
+        {
+            DateTime day = date.Date;
+            if (!tradesByDay.ContainsKey(day))
+            {
+                List<Trade> trades = GetDailyTimeSeriesFromDatabase(day);
+                tradesByDay.Add(day, trades);
+            }
+            return tradesByDay[day];
+        }
+        public IEnumerable<Trade> GetTradesBetween(DateTime date1, DateTime date2) => date1.GetDaysTo(date2)
+                .Distinct()
+                .SelectMany(GetDailyTrades);
+
 
         private CandleTimeSeries GetHistoryCandleTimeSeriesFromDatabase()
         {
@@ -75,23 +89,6 @@ namespace Model
             return candle;
         }
 
-        public IEnumerable<Trade> GetDailyTrades(DateTime date)
-        {
-            DateTime day = date.Date;
-            if (!tradesByDay.ContainsKey(day))
-            {
-                List<Trade> trades = GetDailyTimeSeriesFromDatabase(day);
-                tradesByDay.Add(day, trades);
-            }
-            return tradesByDay[day];
-        }
-
-        public IEnumerable<Trade> GetTradesBetween(DateTime date1, DateTime date2)
-        {
-            return date1.GetDaysTo(date2)
-                .Distinct()
-                .SelectMany(GetDailyTrades);
-        }
         private List<Trade> GetDailyTimeSeriesFromDatabase(DateTime day)
         {
             List<Trade> trades;
@@ -111,7 +108,6 @@ namespace Model
 
             return trades;
         }
-
         private Trade GetTradeFromDatabaseInfo((string, object)[] info)
         {
             Dictionary<string, object> propertiesByName = info

@@ -12,18 +12,12 @@ namespace Presenter.PlotViewProviders
         {
             this.series = series;
         }
-        public IEnumerable<double> GetUpData()
-        {
-            return series.Candles
+        public IEnumerable<double> GetUpData() => series.Candles
                 .Where(candle => candle.GoesUp)
                 .Select(candle => candle.Body);
-        }
 
-        public IEnumerable<double> GetDownData()
-        {
-            return series.Candles
+        public IEnumerable<double> GetDownData() => series.Candles
                 .Where(candle => candle.GoesDown)
                 .Select(candle => candle.Body);
-        }
     }
 }

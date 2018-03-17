@@ -33,12 +33,9 @@ namespace Model.StatisticProviders
             return diPlus[firstDate] < diMinus[firstDate];
         }
 
-        public static double GetPriceVariation(List<DateTime> g, CandleTimeSeries series, bool upTendency = true)
-        {
-            return upTendency
+        public static double GetPriceVariation(List<DateTime> g, CandleTimeSeries series, bool upTendency = true) => upTendency
                 ? series[g.Max(date => date)].Close - series[g.Min(date => date)].Close
                 : series[g.Max(date => date)].Close - series[g.Min(date => date)].Close;
-        }
 
     }
 }
