@@ -26,6 +26,9 @@ namespace View.HistoryTab
         public int IndicatorPeriod => (int)numericUpDownDxPeriod.Value;
         public int SmoothingPeriod => (int)numericUpDownAdxSmoothingPeriod.Value;
 
-        public void LoadData(CandleTimeSeries series, IEnumerable<(TimeSeries, Color)> indicators) => seriesIndicatorCtl.LoadData(series, null, null, indicators);
+        public void LoadData(CandleTimeSeries series, IEnumerable<(TimeSeries, Color)> indicators)
+        {
+            seriesIndicatorCtl.LoadData(series, indicators);
+        }
     }
 }

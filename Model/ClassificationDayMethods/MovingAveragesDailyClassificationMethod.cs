@@ -27,9 +27,14 @@ namespace Model.ClassificationDayMethods
         public TendencyType Classify(DateTime day, CandleTimeSeries candleSeries)
         {
             TimeSeries series = GetTimeSeries(candleSeries);
-            double slowMaValue = GetMovingAverageValue(series, day, slowMovingAveragePeriod);
-            double mediumMaValue = GetMovingAverageValue(series, day, mediumMovingAveragePeriod);
-            double fastMaValue = GetMovingAverageValue(series, day, fastMovingAveragePeriod);
+            DateTime dayBefore = day.AddDays(-1);
+            double slowMaValue = series.GetExponentialMovingAverageAt(dayBefore, slowMovingAveragePeriod);
+            double mediumMaValue = series.GetExponentialMovingAverageAt(dayBefore, mediumMovingAveragePeriod);
+            double fastMaValue = series.GetExponentialMovingAverageAt(dayBefore, fastMovingAveragePeriod);
+            //if (day.Day == 18 && day.Month == 2 && day.Year == 2018)
+            //{
+
+            //}
 
             List<double> values = new List<double> { slowMaValue, mediumMaValue, fastMaValue };
 
@@ -43,17 +48,5 @@ namespace Model.ClassificationDayMethods
         private TimeSeries GetTimeSeries(CandleTimeSeries series) => series.Candles
             .Select(candle => new DateValue(candle.Start, candle.Close))
             .ToTimeSeries();
-
-        private double GetMovingAverageValue(TimeSeries series, DateTime day, int movingAveragePeriod)
-        {
-            int dayIndex = series.GetIndex(day.Date);
-            double movingAverage = dayIndex.GetIntegersTo(dayIndex - movingAveragePeriod)
-                .Where(index => index >= 0)
-                .Select(series.GetValue)
-                .WeightedAverage((value, index) => value,
-                                 (value, index) => index + 1);
-
-            return movingAverage;
-        }
     }
 }

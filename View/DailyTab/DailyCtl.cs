@@ -71,6 +71,9 @@ namespace View.DailyTab
             strategiesCombobox.DataSource = strategiesNames.ToList();
             strategiesCombobox.Refresh();
         }
-        public void LoadData(CandleTimeSeries series, TimeSeries buySeries, TimeSeries sellSeries, IEnumerable<(TimeSeries, Color)> indicators) => seriesIndicatorCtl.LoadData(series, buySeries, sellSeries, indicators);
+        public void LoadData(CandleTimeSeries series, TimeSeries buySeries, TimeSeries sellSeries, IEnumerable<(TimeSeries, Color)> indicators)
+        {
+            seriesIndicatorCtl.LoadData(series, buySeries: buySeries, sellSeries: sellSeries, indicators: indicators);
+        }
     }
 }

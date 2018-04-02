@@ -14,9 +14,25 @@ namespace Presenter.Generic
             this.view = view;
         }
 
-        public void LoadData(CandleTimeSeries series, TimeSeries buySeries, TimeSeries sellSeries, IEnumerable<(TimeSeries, Color)> indicators)
+        public void LoadData(
+            CandleTimeSeries series,
+            IEnumerable<(TimeSeries, Color)> indicators,
+            TimeSeries buySeries = null,
+            TimeSeries sellSeries = null,
+            TimeSeries slowMovingAverage = null,
+            TimeSeries mediumMovingAverage = null,
+            TimeSeries fastMovingAverage = null
+            )
         {
-            view.LoadData(series, buySeries, sellSeries, indicators);
+            view.LoadData(
+                series: series,
+                buySeries: buySeries,
+                sellSeries: sellSeries,
+                indicators: indicators,
+                slowMovingAverage: slowMovingAverage,
+                mediumMovingAverage: mediumMovingAverage,
+                fastMovingAverage: fastMovingAverage
+                );
         }
     }
 }
