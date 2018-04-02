@@ -15,15 +15,11 @@ namespace Model.ClassificationDayMethods
 
         public MovingAveragesDailyClassificationMethod(int slowMovingAveragePeriod,
                                                      int mediumMovingAveragePeriod,
-                                                     int fastMovingAveragePeriod,
-                                                     DateTime startDay,
-                                                     DateTime endDay)
+                                                     int fastMovingAveragePeriod)
         {
             this.slowMovingAveragePeriod = slowMovingAveragePeriod;
             this.mediumMovingAveragePeriod = mediumMovingAveragePeriod;
             this.fastMovingAveragePeriod = fastMovingAveragePeriod;
-            this.StartDay = startDay.Date;
-            this.EndDay = endDay.Date;
         }
 
         public string Name { get; } = "Moving Averages";
@@ -43,10 +39,6 @@ namespace Model.ClassificationDayMethods
                 ? TendencyType.Down
                 : TendencyType.Range;
         }
-
-        public DateTime StartDay { get; }
-
-        public DateTime EndDay { get; }
 
         private TimeSeries GetTimeSeries(CandleTimeSeries series) => series.Candles
             .Select(candle => new DateValue(candle.Start, candle.Close))

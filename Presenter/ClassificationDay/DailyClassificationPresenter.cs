@@ -13,16 +13,20 @@ namespace Presenter.ClassificationDay
         public DailyClassificationPresenter(IDailyClassificationView view)
         {
             this.view = view;
-            DailyClassificationInputPresenter dailyClassificationInputPresenter = new DailyClassificationInputPresenter(view.GetMethodSelectorView());
-            dailyClassificationInputPresenter.DoAnalysisRequest += DoAnalysis;
+
+            AdxInputsPresenter adxInputsPresenter = new AdxInputsPresenter(view.GetAdxInputsView());
+            adxInputsPresenter.DoClassificationRequest += input => DoAnalysis(input.GetMethod());
+
+            MovingAverageInputsPresenter movingAverageInputsPresenter = new MovingAverageInputsPresenter(view.GetMovingAverageInputView());
+            movingAverageInputsPresenter.DoClassificationRequest += input => DoAnalysis(input.GetMethod());
         }
 
         private void DoAnalysis(IDailyClassificationMethod method)
         {
             CandleTimeSeries series = Context.Instance.HistoryCandleTimeSeries;
             IEnumerable<DailyClassification> classifications = series.Candles
-                .Where(candle => candle.Start >= method.StartDay &&
-                                 candle.Start <= method.EndDay)
+                .Where(candle => candle.Start >= view.GetStartDay() &&
+                                 candle.Start <= view.GetEndDay())
                 .Select(candle => new DailyClassification(candle: candle,
                                                           classification: method.Classify(candle.Start.Date, series)));
             view.LoadClassifications(classifications);

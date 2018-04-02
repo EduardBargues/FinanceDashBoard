@@ -15,8 +15,8 @@ namespace Presenter.ClassificationDay
         }
 
         public DateTime Day => candle.Start.Date;
-        public double PriceVariation => candle.Close - candle.Open;
-        public double BodyRangeRatio => candle.Body / (candle.Range > 0 ? candle.Range : 1);
+        public string PriceVariation => (candle.Close - candle.Open).ToString("N2");
+        public string BodyRangeRatio => (candle.Body / (candle.Range > 0 ? candle.Range : 1)).ToString("N2");
         public TendencyType Tendency { get; }
     }
 }

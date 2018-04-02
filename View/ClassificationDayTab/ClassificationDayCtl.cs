@@ -1,4 +1,5 @@
 ﻿using Presenter.ClassificationDay;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,9 +11,35 @@ namespace View.ClassificationDayTab
         public ClassificationDayCtl()
         {
             InitializeComponent();
+            classificationGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            classificationGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            startDateCtl.Value = DateTime.Today.AddMonths(-3);
+            endDayCtl.Value = DateTime.Today;
         }
 
-        public IDailyClassificationMethodSelectorView GetMethodSelectorView() => dailyClassificationMethodInputCtl;
-        public void LoadClassifications(IEnumerable<DailyClassification> classifications) => classificationGrid.DataSource = classifications.ToList();
+        public void LoadClassifications(IEnumerable<DailyClassification> classifications)
+        {
+            classificationGrid.DataSource = classifications.ToList();
+        }
+
+        public IAdxInputsView GetAdxInputsView()
+        {
+            return dailyClassificationMethodInputCtl.GetAdxInputsView();
+        }
+
+        public IMovingAverageInputsView GetMovingAverageInputView()
+        {
+            return dailyClassificationMethodInputCtl.GetMovingAverageView();
+        }
+
+        public DateTime GetStartDay()
+        {
+            return startDateCtl.Value.Date;
+        }
+
+        public DateTime GetEndDay()
+        {
+            return endDayCtl.Value.Date;
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Presenter.ClassificationDay;
-using System;
 using System.Windows.Forms;
 
 namespace View.ClassificationDayTab
@@ -8,15 +7,11 @@ namespace View.ClassificationDayTab
     {
         private MovingAverageInputsCtl movingAverageInputsCtl;
         private AdxInputsCtl adxInputsCtl;
-        private DailyClassificationInputPresenter presenter;
-
-        public event Action SelectedMethodChanged;
 
         public SelectionDailyClassificationMethodInputCtl()
         {
             InitializeComponent();
             SetControls();
-            presenter = new DailyClassificationInputPresenter(this);
         }
 
         private void SetControls()

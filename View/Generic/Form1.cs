@@ -12,7 +12,6 @@ namespace View.Generic
 {
     public partial class Form1 : Form, IMainView
     {
-        private MainPresenter mainPresenter;
         private readonly HistoryCtl historyCtl;
         private readonly DailyCtl dailyCtl;
         private readonly ClassificationDayCtl classificationDayCtl;
@@ -66,7 +65,7 @@ namespace View.Generic
 
             Controls.Add(tabControl);
 
-            mainPresenter = new MainPresenter(this);
+            MainPresenter mainPresenter = new MainPresenter(this);
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -79,6 +78,6 @@ namespace View.Generic
 
         public IHistoryView GetHistoryView() => historyCtl;
         public IDailyView GetDailyView() => dailyCtl;
-        public IDailyClassificationView GetCategorizationView() => classificationDayCtl;
+        public IDailyClassificationView GetDailyClassificationView() => classificationDayCtl;
     }
 }

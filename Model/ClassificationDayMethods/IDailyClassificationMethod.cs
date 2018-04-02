@@ -7,7 +7,5 @@ namespace Model.ClassificationDayMethods
     {
         string Name { get; }
         TendencyType Classify(DateTime day, CandleTimeSeries series);
-        DateTime StartDay { get; }
-        DateTime EndDay { get; }
     }
 }

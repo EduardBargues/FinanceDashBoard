@@ -30,6 +30,10 @@
         {
             this.dailyClassificationMethodInputCtl = new View.ClassificationDayTab.SelectionDailyClassificationMethodInputCtl();
             this.classificationGrid = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.startDateCtl = new System.Windows.Forms.DateTimePicker();
+            this.endDayCtl = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.classificationGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -37,7 +41,7 @@
             // 
             this.dailyClassificationMethodInputCtl.Location = new System.Drawing.Point(3, 3);
             this.dailyClassificationMethodInputCtl.Name = "dailyClassificationMethodInputCtl";
-            this.dailyClassificationMethodInputCtl.Size = new System.Drawing.Size(708, 271);
+            this.dailyClassificationMethodInputCtl.Size = new System.Drawing.Size(900, 271);
             this.dailyClassificationMethodInputCtl.TabIndex = 0;
             // 
             // classificationGrid
@@ -45,22 +49,59 @@
             this.classificationGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.classificationGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.classificationGrid.Location = new System.Drawing.Point(3, 280);
+            this.classificationGrid.Location = new System.Drawing.Point(3, 369);
             this.classificationGrid.Name = "classificationGrid";
             this.classificationGrid.RowTemplate.Height = 40;
-            this.classificationGrid.Size = new System.Drawing.Size(708, 866);
+            this.classificationGrid.Size = new System.Drawing.Size(900, 1023);
             this.classificationGrid.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 281);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 32);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "From:";
+            // 
+            // startDateCtl
+            // 
+            this.startDateCtl.Location = new System.Drawing.Point(99, 281);
+            this.startDateCtl.Name = "startDateCtl";
+            this.startDateCtl.Size = new System.Drawing.Size(804, 38);
+            this.startDateCtl.TabIndex = 3;
+            // 
+            // endDayCtl
+            // 
+            this.endDayCtl.Location = new System.Drawing.Point(99, 325);
+            this.endDayCtl.Name = "endDayCtl";
+            this.endDayCtl.Size = new System.Drawing.Size(804, 38);
+            this.endDayCtl.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(36, 325);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 32);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "To:";
             // 
             // ClassificationDayCtl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.endDayCtl);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.startDateCtl);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.classificationGrid);
             this.Controls.Add(this.dailyClassificationMethodInputCtl);
             this.Name = "ClassificationDayCtl";
-            this.Size = new System.Drawing.Size(2535, 1149);
+            this.Size = new System.Drawing.Size(2473, 1395);
             ((System.ComponentModel.ISupportInitialize)(this.classificationGrid)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -68,5 +109,9 @@
 
         private SelectionDailyClassificationMethodInputCtl dailyClassificationMethodInputCtl;
         private System.Windows.Forms.DataGridView classificationGrid;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker startDateCtl;
+        private System.Windows.Forms.DateTimePicker endDayCtl;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -31,31 +31,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CandleTimeSeriesAnalysis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.1\lib\net461\CandleTimeSeriesAnalysis.dll</HintPath>
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\CandleTimeSeriesAnalysis.dll</HintPath>
     </Reference>
     <Reference Include="CommonUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.1\lib\net461\CommonUtils.dll</HintPath>
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\CommonUtils.dll</HintPath>
     </Reference>
-    <Reference Include="EPPlus, Version=4.5.0.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
-      <HintPath>..\packages\TimeSeries.1.0.7\lib\net461\EPPlus.dll</HintPath>
+    <Reference Include="EPPlus, Version=4.5.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\TimeSeries.1.0.8\lib\net461\EPPlus.dll</HintPath>
     </Reference>
-    <Reference Include="MathNet.Numerics, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TimeSeries.1.0.7\lib\net461\MathNet.Numerics.dll</HintPath>
+    <Reference Include="MathNet.Numerics, Version=4.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TimeSeries.1.0.8\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
-    <Reference Include="MoreLinq, Version=2.9.21302.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.1\lib\net461\MoreLinq.dll</HintPath>
+    <Reference Include="MoreLinq, Version=2.10.21623.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\MoreLinq.dll</HintPath>
     </Reference>
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.1\lib\net461\OxyPlot.dll</HintPath>
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\OxyPlot.dll</HintPath>
     </Reference>
     <Reference Include="OxyPlot.WindowsForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.1\lib\net461\OxyPlot.WindowsForms.dll</HintPath>
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\OxyPlot.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.1\lib\net461\System.ValueTuple.dll</HintPath>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -65,7 +65,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TimeSeriesAnalysis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TimeSeries.1.0.7\lib\net461\TimeSeriesAnalysis.dll</HintPath>
+      <HintPath>..\packages\TimeSeries.1.0.8\lib\net461\TimeSeriesAnalysis.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +77,7 @@
     <Compile Include="ClassificationDay\MovingAverageDailyClassificationInput.cs" />
     <Compile Include="ClassificationDay\MovingAverageInputsPresenter.cs" />
     <Compile Include="Daily\DailyPresenter.cs" />
+    <Compile Include="Generic\IMainView.cs" />
     <Compile Include="History\HistoryPresenter.cs" />
     <Compile Include="ClassificationDay\AdxInputsPresenter.cs" />
     <Compile Include="ClassificationDay\IAdxInputsView.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Generic\MainPresenter.cs" />
     <Compile Include="ClassificationDay\IDailyClassificationMethodSelectorView.cs" />
     <Compile Include="ClassificationDay\IMovingAverageInputsView.cs" />
-    <Compile Include="ClassificationDay\DailyClassificationInputPresenter.cs" />
     <Compile Include="PlotViewProviders\CandleBodyDataProvider.cs" />
     <Compile Include="PlotViewProviders\CandleQuantityAdxSustainedSlopeDataProvider.cs" />
     <Compile Include="PlotViewProviders\CandleQuantityDiPlusVsDiMinusDataProvider.cs" />

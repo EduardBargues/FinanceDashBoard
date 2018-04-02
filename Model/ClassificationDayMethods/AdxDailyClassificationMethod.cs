@@ -12,15 +12,11 @@ namespace Model.ClassificationDayMethods
 
         public AdxDailyClassificationMethod(int directionalIndexPeriod,
                                             int averagePeriod,
-                                            double adxMinimumValue,
-                                            DateTime startDay,
-                                            DateTime endDay)
+                                            double adxMinimumValue)
         {
             this.directionalIndexPeriod = directionalIndexPeriod;
             this.averagePeriod = averagePeriod;
             this.adxMinimumValue = adxMinimumValue;
-            StartDay = startDay.Date;
-            EndDay = endDay.Date;
         }
 
         public string Name { get; } = "Average Directional Index";
@@ -49,8 +45,5 @@ namespace Model.ClassificationDayMethods
                     : TendencyType.Down;
             return TendencyType.Range;
         }
-
-        public DateTime StartDay { get; }
-        public DateTime EndDay { get; }
     }
 }
