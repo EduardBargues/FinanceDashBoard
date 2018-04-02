@@ -34,6 +34,7 @@
             this.startDateCtl = new System.Windows.Forms.DateTimePicker();
             this.endDayCtl = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
+            this.seriesIndicatorCtl = new View.Generic.SeriesIndicatorCtl();
             ((System.ComponentModel.ISupportInitialize)(this.classificationGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             this.classificationGrid.Location = new System.Drawing.Point(3, 369);
             this.classificationGrid.Name = "classificationGrid";
             this.classificationGrid.RowTemplate.Height = 40;
-            this.classificationGrid.Size = new System.Drawing.Size(900, 1023);
+            this.classificationGrid.Size = new System.Drawing.Size(900, 331);
             this.classificationGrid.TabIndex = 1;
             // 
             // label1
@@ -87,10 +88,21 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "To:";
             // 
+            // seriesIndicatorCtl
+            // 
+            this.seriesIndicatorCtl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.seriesIndicatorCtl.Location = new System.Drawing.Point(909, 3);
+            this.seriesIndicatorCtl.Name = "seriesIndicatorCtl";
+            this.seriesIndicatorCtl.Size = new System.Drawing.Size(970, 697);
+            this.seriesIndicatorCtl.TabIndex = 6;
+            // 
             // ClassificationDayCtl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.seriesIndicatorCtl);
             this.Controls.Add(this.endDayCtl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.startDateCtl);
@@ -98,7 +110,7 @@
             this.Controls.Add(this.classificationGrid);
             this.Controls.Add(this.dailyClassificationMethodInputCtl);
             this.Name = "ClassificationDayCtl";
-            this.Size = new System.Drawing.Size(2473, 1395);
+            this.Size = new System.Drawing.Size(1882, 703);
             ((System.ComponentModel.ISupportInitialize)(this.classificationGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -113,5 +125,6 @@
         private System.Windows.Forms.DateTimePicker startDateCtl;
         private System.Windows.Forms.DateTimePicker endDayCtl;
         private System.Windows.Forms.Label label2;
+        private Generic.SeriesIndicatorCtl seriesIndicatorCtl;
     }
 }

@@ -78,6 +78,8 @@
     <Compile Include="ClassificationDay\MovingAverageInputsPresenter.cs" />
     <Compile Include="Daily\DailyPresenter.cs" />
     <Compile Include="Generic\IMainView.cs" />
+    <Compile Include="Generic\ISeriesIndicatorView.cs" />
+    <Compile Include="Generic\SeriesIndicatorPresenter.cs" />
     <Compile Include="History\HistoryPresenter.cs" />
     <Compile Include="ClassificationDay\AdxInputsPresenter.cs" />
     <Compile Include="ClassificationDay\IAdxInputsView.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Generic\MainPresenter.cs" />
     <Compile Include="ClassificationDay\IDailyClassificationMethodSelectorView.cs" />
     <Compile Include="ClassificationDay\IMovingAverageInputsView.cs" />
+    <Compile Include="History\IHistoryView.cs" />
     <Compile Include="PlotViewProviders\CandleBodyDataProvider.cs" />
     <Compile Include="PlotViewProviders\CandleQuantityAdxSustainedSlopeDataProvider.cs" />
     <Compile Include="PlotViewProviders\CandleQuantityDiPlusVsDiMinusDataProvider.cs" />

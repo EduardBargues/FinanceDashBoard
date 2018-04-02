@@ -4,6 +4,7 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
+using Presenter.Generic;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +14,7 @@ using TimeSeriesAnalysis;
 
 namespace View.Generic
 {
-    public partial class SeriesIndicatorCtl : UserControl
+    public partial class SeriesIndicatorCtl : UserControl, ISeriesIndicatorView
     {
         public SeriesIndicatorCtl()
         {

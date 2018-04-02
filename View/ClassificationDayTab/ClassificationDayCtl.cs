@@ -1,4 +1,5 @@
 ﻿using Presenter.ClassificationDay;
+using Presenter.Generic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace View.ClassificationDayTab
             InitializeComponent();
             classificationGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             classificationGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            classificationGrid.SelectionChanged += (sender, args) => SelectedDayChanged?.Invoke();
             startDateCtl.Value = DateTime.Today.AddMonths(-3);
             endDayCtl.Value = DateTime.Today;
         }
@@ -41,5 +43,15 @@ namespace View.ClassificationDayTab
         {
             return endDayCtl.Value.Date;
         }
+
+        public ISeriesIndicatorView GetSeriesIndicatorView()
+        {
+            return seriesIndicatorCtl;
+        }
+
+        public event Action SelectedDayChanged;
+        public DateTime SelectedDay => classificationGrid.SelectedRows.Count > 0
+            ? ((DailyClassification)classificationGrid.SelectedRows[0].DataBoundItem).Day
+            : DateTime.MinValue;
     }
 }

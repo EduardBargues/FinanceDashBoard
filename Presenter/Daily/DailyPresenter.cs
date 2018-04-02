@@ -122,7 +122,6 @@ namespace Presenter.Daily
             TimeSeries sellTimeSeries = datesValuesByAction.GetValueOrDefault(false)
                 ?.ToTimeSeries("Sell");
             return (buyTimeSeries, sellTimeSeries);
-            //return (null,null);
         }
 
         private (CandleTimeSeries, CandleTimeSeries) CandleTimeSeries(List<Trade> dayTrades, DateTime day, List<Trade> dayBeforeTrades)

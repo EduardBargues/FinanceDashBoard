@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Presenter.Generic;
+using System;
 using System.Collections.Generic;
 
 namespace Presenter.ClassificationDay
@@ -10,5 +11,8 @@ namespace Presenter.ClassificationDay
         IMovingAverageInputsView GetMovingAverageInputView();
         DateTime GetStartDay();
         DateTime GetEndDay();
+        ISeriesIndicatorView GetSeriesIndicatorView();
+        event Action SelectedDayChanged;
+        DateTime SelectedDay { get; }
     }
 }

@@ -22,5 +22,15 @@ namespace Presenter.ClassificationDay
             };
             DoClassificationRequest?.Invoke(input);
         }
+
+        public int GetDxPeriod()
+        {
+            return view.GetDxPeriod();
+        }
+
+        public int GetMovingAveragePeriod()
+        {
+            return view.GetMovingAveragePeriod();
+        }
     }
 }
