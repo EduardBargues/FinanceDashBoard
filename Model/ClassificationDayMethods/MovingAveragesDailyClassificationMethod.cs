@@ -24,25 +24,20 @@ namespace Model.ClassificationDayMethods
 
         public string Name { get; } = "Moving Averages";
 
-        public TendencyType Classify(DateTime day, CandleTimeSeries candleSeries)
+        public Tendency Classify(DateTime day, CandleTimeSeries candleSeries)
         {
             TimeSeries series = GetTimeSeries(candleSeries);
             DateTime dayBefore = day.AddDays(-1);
             double slowMaValue = series.GetExponentialMovingAverageAt(dayBefore, slowMovingAveragePeriod);
             double mediumMaValue = series.GetExponentialMovingAverageAt(dayBefore, mediumMovingAveragePeriod);
             double fastMaValue = series.GetExponentialMovingAverageAt(dayBefore, fastMovingAveragePeriod);
-            //if (day.Day == 18 && day.Month == 2 && day.Year == 2018)
-            //{
-
-            //}
-
             List<double> values = new List<double> { slowMaValue, mediumMaValue, fastMaValue };
 
             if (values.IsSorted())
-                return TendencyType.Up;
+                return Tendency.Up;
             return values.IsDescendantlySorted()
-                ? TendencyType.Down
-                : TendencyType.Range;
+                ? Tendency.Down
+                : Tendency.Range;
         }
 
         private TimeSeries GetTimeSeries(CandleTimeSeries series) => series.Candles

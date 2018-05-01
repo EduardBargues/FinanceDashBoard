@@ -21,7 +21,7 @@ namespace Model.ClassificationDayMethods
 
         public string Name { get; } = "Average Directional Index";
 
-        public TendencyType Classify(DateTime day, CandleTimeSeries series)
+        public Tendency Classify(DateTime day, CandleTimeSeries series)
         {
             AverageDirectionalMovementIndex adx = AverageDirectionalMovementIndex.Create(directionalIndexPeriod, averagePeriod);
             double adxValue = adx.GetValueAt(series, day.Date);
@@ -41,9 +41,9 @@ namespace Model.ClassificationDayMethods
             if (adxValue >= adxMinimumValue &&
                 adxSlope >= 0)
                 return diPlusValue > diMinusValue
-                    ? TendencyType.Up
-                    : TendencyType.Down;
-            return TendencyType.Range;
+                    ? Tendency.Up
+                    : Tendency.Down;
+            return Tendency.Range;
         }
     }
 }

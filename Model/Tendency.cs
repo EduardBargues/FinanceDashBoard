@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public enum TendencyType
+    public enum Tendency
     {
         Up,
         Down,

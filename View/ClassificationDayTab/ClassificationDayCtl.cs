@@ -12,7 +12,7 @@ namespace View.ClassificationDayTab
         public ClassificationDayCtl()
         {
             InitializeComponent();
-            classificationGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            classificationGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             classificationGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             classificationGrid.SelectionChanged += (sender, args) => SelectedDayChanged?.Invoke();
             startDateCtl.Value = DateTime.Today.AddMonths(-3);
@@ -53,5 +53,10 @@ namespace View.ClassificationDayTab
         public DateTime SelectedDay => classificationGrid.SelectedRows.Count > 0
             ? ((DailyClassification)classificationGrid.SelectedRows[0].DataBoundItem).Day
             : DateTime.MinValue;
+
+        public IParameterListView GetClassificationStatisticsView()
+        {
+            return parametersListCtl;
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace Presenter.ClassificationDay
         ISeriesIndicatorView GetSeriesIndicatorView();
         event Action SelectedDayChanged;
         DateTime SelectedDay { get; }
+        IParameterListView GetClassificationStatisticsView();
     }
 }

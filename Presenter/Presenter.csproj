@@ -31,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CandleTimeSeriesAnalysis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\CandleTimeSeriesAnalysis.dll</HintPath>
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.2.0.0\lib\net461\CandleTimeSeriesAnalysis.dll</HintPath>
     </Reference>
     <Reference Include="CommonUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\CommonUtils.dll</HintPath>
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.2.0.0\lib\net461\CommonUtils.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus, Version=4.5.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\TimeSeries.1.0.9\lib\net461\EPPlus.dll</HintPath>
@@ -43,19 +43,19 @@
       <HintPath>..\packages\TimeSeries.1.0.9\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq, Version=2.10.21623.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\MoreLinq.dll</HintPath>
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.2.0.0\lib\net461\MoreLinq.dll</HintPath>
     </Reference>
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\OxyPlot.dll</HintPath>
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.2.0.0\lib\net461\OxyPlot.dll</HintPath>
     </Reference>
     <Reference Include="OxyPlot.WindowsForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\OxyPlot.WindowsForms.dll</HintPath>
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.2.0.0\lib\net461\OxyPlot.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\CandleTimeSeriesAnalysis.1.1.2\lib\net461\System.ValueTuple.dll</HintPath>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\CandleTimeSeriesAnalysis.2.0.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassificationDay\AdxDailyClassificationInput.cs" />
+    <Compile Include="ClassificationDay\ClassificationStatistics.cs" />
     <Compile Include="ClassificationDay\DailyClassification.cs" />
     <Compile Include="ClassificationDay\DailyClassificationPresenter.cs" />
     <Compile Include="ClassificationDay\IDailyClassificationInput.cs" />
@@ -78,7 +79,10 @@
     <Compile Include="ClassificationDay\MovingAverageInputsPresenter.cs" />
     <Compile Include="Daily\DailyPresenter.cs" />
     <Compile Include="Generic\IMainView.cs" />
+    <Compile Include="Generic\IParameterListView.cs" />
     <Compile Include="Generic\ISeriesIndicatorView.cs" />
+    <Compile Include="Generic\ParameterListPresenter.cs" />
+    <Compile Include="Generic\ParameterVisual.cs" />
     <Compile Include="Generic\SeriesIndicatorPresenter.cs" />
     <Compile Include="History\HistoryPresenter.cs" />
     <Compile Include="ClassificationDay\AdxInputsPresenter.cs" />

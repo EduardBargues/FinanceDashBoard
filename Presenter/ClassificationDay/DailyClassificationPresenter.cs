@@ -1,6 +1,7 @@
 ﻿using CandleTimeSeriesAnalysis;
 using Model;
 using Model.ClassificationDayMethods;
+using MoreLinq;
 using Presenter.Generic;
 using System;
 using System.Collections.Generic;
@@ -17,20 +18,65 @@ namespace Presenter.ClassificationDay
         public DailyClassificationPresenter(IDailyClassificationView view)
         {
             this.view = view;
-            AdxInputsPresenter adxInputsPresenter = new AdxInputsPresenter(view.GetAdxInputsView());
-            adxInputsPresenter.DoClassificationRequest += input => DoAnalysis(input.GetMethod());
 
+            AdxInputsPresenter adxInputsPresenter = new AdxInputsPresenter(view.GetAdxInputsView());
             MovingAverageInputsPresenter movingAverageInputsPresenter = new MovingAverageInputsPresenter(view.GetMovingAverageInputView());
+            ParameterListPresenter statisticsPresenter = new ParameterListPresenter(view.GetClassificationStatisticsView());
             SeriesIndicatorPresenter seriesPresenter = new SeriesIndicatorPresenter(view.GetSeriesIndicatorView());
 
-            movingAverageInputsPresenter.DoClassificationRequest += input =>
-            {
-                DoAnalysis(input.GetMethod());
-                LoadSeriesIndicators(adxInputsPresenter, movingAverageInputsPresenter, seriesPresenter);
-            };
+            adxInputsPresenter.DoClassificationRequest += input => OnClassificationRequest(input,
+                                                                                           statisticsPresenter,
+                                                                                           adxInputsPresenter,
+                                                                                           movingAverageInputsPresenter,
+                                                                                           seriesPresenter);
+            movingAverageInputsPresenter.DoClassificationRequest += input => OnClassificationRequest(input,
+                                                                                                     statisticsPresenter,
+                                                                                                     adxInputsPresenter,
+                                                                                                     movingAverageInputsPresenter,
+                                                                                                     seriesPresenter);
             this.view.SelectedDayChanged += () => LoadSeriesIndicators(adxInputsPresenter,
                                                                        movingAverageInputsPresenter,
                                                                        seriesPresenter);
+        }
+
+        private void OnClassificationRequest(IDailyClassificationInput input,
+            ParameterListPresenter statisticsPresenter, AdxInputsPresenter adxInputsPresenter,
+            MovingAverageInputsPresenter movingAverageInputsPresenter, SeriesIndicatorPresenter seriesPresenter)
+        {
+            List<DailyClassification> classifications = DoAnalysis(input.GetMethod())
+                .ToList();
+            view.LoadClassifications(classifications);
+            ClassificationStatistics statistics = GetClassificationStatistics(classifications);
+            statisticsPresenter.LoadData(statistics.GetParameters());
+            LoadSeriesIndicators(adxInputsPresenter, movingAverageInputsPresenter, seriesPresenter);
+        }
+
+        private ClassificationStatistics GetClassificationStatistics(IEnumerable<DailyClassification> classifications)
+        {
+            List<IGrouping<bool, DailyClassification>> groups = classifications
+                .GroupAdjacent(classification => classification.Success)
+                .ToList();
+            List<IGrouping<bool, DailyClassification>> successGroups = groups
+                .Where(group => @group.Key)
+                .ToList();
+            List<IGrouping<bool, DailyClassification>> failGroups = groups
+                .Where(group => !@group.Key)
+                .ToList();
+            return new ClassificationStatistics()
+            {
+                NumberOfSuccesses = groups
+                    .Where(group => group.Key)
+                    .Sum(group => group.Count()),
+                NumberOfFails = groups
+                    .Where(group => !group.Key)
+                    .Sum(group => group.Count()),
+                NumberOfConsecutiveSuccesses = successGroups.Any()
+                    ? successGroups.Max(group => group.Count())
+                    : 0,
+                NumberOfConsecutiveFails = failGroups.Any()
+                    ? failGroups.Max(group => group.Count())
+                    : 0,
+            };
         }
 
         private void LoadSeriesIndicators(
@@ -71,7 +117,7 @@ namespace Presenter.ClassificationDay
             );
         }
 
-        private void DoAnalysis(IDailyClassificationMethod method)
+        private IEnumerable<DailyClassification> DoAnalysis(IDailyClassificationMethod method)
         {
             CandleTimeSeries series = Context.Instance.HistoryCandleTimeSeries;
             IEnumerable<DailyClassification> classifications = series.Candles
@@ -79,7 +125,7 @@ namespace Presenter.ClassificationDay
                                  candle.Start <= view.GetEndDay())
                 .Select(candle => new DailyClassification(candle: candle,
                                                           classification: method.Classify(candle.Start.Date, series)));
-            view.LoadClassifications(classifications);
+            return classifications;
         }
     }
 }
